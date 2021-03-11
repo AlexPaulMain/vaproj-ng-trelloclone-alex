@@ -1,0 +1,37 @@
+<div class="ui raised segment container">
+
+  <!-- Form -->
+  <form [formGroup]="myForm"
+    (ngSubmit)="onSubmit(myForm.value)"
+    class="ui form centre"
+    [class.error]="!myForm.valid && myForm.touched">
+
+    <!-- Username input field -->
+    <div class="field" [class.error]="!username.valid && username.touched">
+      <!-- <label for="skuInput">Username: </label> -->
+      <input type="text"
+        id="skuInput"
+        placeholder="Username"
+        [formControl]="username">
+    </div>
+
+    <!-- Password input field -->
+    <div class="field" [class.error]="!password.valid && password.touched">
+      <!-- <label for="skuInput">Password: </label> -->
+      <input type="text"
+        id="skuInput"
+        placeholder="Password"
+        [formControl]="password">
+    </div>
+
+    <!-- Display messages -->
+    <div *ngIf="!username.valid && myForm.touched">Username is invalid</div>
+    <div *ngIf="username.hasError('required') && myForm.touched">Username is required</div>
+    <div *ngIf="!password.valid && myForm.touched">Password is invalid</div>
+    <div *ngIf="password.hasError('required') && myForm.touched">Password is required</div>
+
+    <div *ngIf="!myForm.valid && myForm.touched">Form is invalid</div>
+
+    <button type="submit" class="ui button">Login</button>
+  </form>
+</div>
