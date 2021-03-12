@@ -5,9 +5,10 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { AbstractWebDriver } from 'protractor/built/browser';
 
 import { AuthenticationService } from '../services/authentication.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formbuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private snackBar: MatSnackBar,
+    private router: Router,
     ) {
     this.myForm = formbuilder.group({
       username: ['alex', Validators.required],
@@ -38,11 +41,16 @@ export class LoginComponent implements OnInit {
   onSubmit(loginCredentials: any): void {
     console.log('you submitted value: ', loginCredentials);
     this.authenticationService.login(loginCredentials)
-    .subscribe(data => {
-      if(data) {
-        console.log("Valid times")
+    .subscribe(userSession => {
+      if(userSession) {
+        console.log('Logged in successfully'),
+        this.snackBar.open('Login Successful', "Close", {duration: 3000}),
+        this.router.navigate(['/main'])
       }
-    });
+    }),
+    (error: any) => {
+      console.log("awe")
+      console.log(error);
+    };
   }
-
 }

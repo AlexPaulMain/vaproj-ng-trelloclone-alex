@@ -1,5 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  margin: 10px 0;
+  color: rgb(180, 180, 180);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0px;
+  border: 0;
+  border-bottom: 1px solid rgb(180, 180, 180);
+  transition: 0.3s;
+}
+
+.input:hover {
+  box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 15px 4px rgb(180, 180, 180);
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: rgb(180, 180, 180);
+  border: 0;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(112, 112, 112);
+  color: rgb(255, 255, 255);
+  /*box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);*/
+}
+
+.button:focus {
+  outline: none;
+  background-color: rgb(112, 112, 112);
+  color: rgb(255, 255, 255);
+  /*box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);*/
+}
+
 .error {
   color: red;
+}
+
+.error-message {
+  margin: 5px 0px;
+  font-size: 15px;
 }
 
 .centre {

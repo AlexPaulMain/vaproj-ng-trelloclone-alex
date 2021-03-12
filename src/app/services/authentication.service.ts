@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {
   BehaviorSubject,
   interval,
-  Observable} from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+  Observable,
+  throwError} from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 /* Services */
 
 /* Models */
@@ -36,7 +37,7 @@ export class AuthenticationService {
         this.startTokenRefresh();
         return userSession;
       })
-    );
+    )
   }
 
   requestUser(userSession) {
@@ -48,7 +49,7 @@ export class AuthenticationService {
         localStorage.setItem('userSession', JSON.stringify(this.currentUserSession));
         return this.currentUserSession.value;
       })
-    )
+    );
   }
 
   login(loginCredentials) {
@@ -86,6 +87,13 @@ export class AuthenticationService {
         console.log('Refreshed token');
       })
     ).subscribe()
+  }
+
+  isAuthenticated(): boolean {
+    if (this.currentUserSession.value.access) {
+      return true;
+    }
+    return false;
   }
 
 }
