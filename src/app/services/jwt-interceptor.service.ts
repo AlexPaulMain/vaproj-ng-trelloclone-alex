@@ -3,24 +3,23 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
 } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor{
+export class JwtInterceptor implements HttpInterceptor {
+  constructor(public authenticationService: AuthenticationService) {}
 
-  constructor(public authenticationService: AuthenticationService) {
-
-  }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.authenticationService.getAccessToken()}`
-      }
+        Authorization: `Bearer ${this.authenticationService.getAccessToken()}`,
+      },
     });
     return next.handle(request);
   }

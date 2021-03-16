@@ -1,0 +1,42 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(180, 180, 180);
+}
+
+li {
+  float: left;
+}
+
+li button {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: rgb(180, 180, 180);
+  border: 0;
+  transition: 0.3s;
+}
+
+li button:hover {
+  background-color: rgb(112, 112, 112);
+  color: rgb(255, 255, 255);
+}
+
+li button:focus {
+  background-color: rgb(112, 112, 112);
+  color: rgb(255, 255, 255);
+  outline: none;
+}
+
+.logout {
+  float: right;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}

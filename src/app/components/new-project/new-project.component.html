@@ -1,0 +1,63 @@
+<div class="container">
+  <form
+    [formGroup]="newProjectForm"
+    (ngSubmit)="onSubmit(newProjectForm.value)"
+  >
+    <mat-card>
+      <mat-card-title>New Project</mat-card-title>
+      <mat-card-subtitle>Enter project details</mat-card-subtitle>
+      <mat-card-content class="fields">
+        <mat-form-field>
+          <mat-label>Project Name</mat-label>
+          <input formControlName="name" matInput />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Project Description</mat-label>
+          <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Start Date</mat-label>
+          <input
+            formControlName="startDate"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Target Date</mat-label>
+          <input
+            formControlName="targetDate"
+            matInput
+            [matDatepicker]="picker2"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          type="submit"
+          [disabled]="!newProjectForm.valid"
+        >
+          Create
+        </button>
+        <button
+          mat-raised-button
+          type="reset"
+          (click)="outputCancelNewProject()"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

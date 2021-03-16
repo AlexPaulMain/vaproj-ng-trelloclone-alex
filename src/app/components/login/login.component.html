@@ -1,41 +1,53 @@
 <div class="container">
-
   <!-- Form -->
-  <form [formGroup]="myForm"
+  <form
+    [formGroup]="myForm"
     (ngSubmit)="onSubmit(myForm.value)"
     class="centre"
-    [class.error]="!myForm.valid && myForm.touched">
-
+    [class.error]="!myForm.valid && myForm.touched"
+  >
     <h1 class="header">Trello Clone</h1>
 
     <!-- Username input field -->
-    <div [class.error]="!username.valid && username.touched"
-    class="form">
+    <div [class.error]="!username.valid && username.touched" class="form">
       <!-- <label for="skuInput">Username: </label> -->
-      <input type="text"
+      <input
+        type="text"
         id="usernameInput"
         placeholder="Username"
         [formControl]="username"
-        class="input">
+        class="input"
+      />
     </div>
 
-    <div class="error-message" *ngIf="username.hasError('required') && myForm.touched">Username is required</div>
+    <div
+      class="error-message"
+      *ngIf="username.hasError('required') && myForm.touched"
+    >
+      Username is required
+    </div>
 
     <!-- Password input field -->
-    <div [class.error]="!password.valid && password.touched"
-    class="form">
+    <div [class.error]="!password.valid && password.touched" class="form">
       <!-- <label for="skuInput">Password: </label> -->
-      <input type="password"
+      <input
+        type="password"
         id="passwordInput"
         placeholder="Password"
         [formControl]="password"
-        class="input">
+        class="input"
+      />
     </div>
 
     <!-- Display messages -->
     <!-- <div *ngIf="!username.valid && myForm.touched">Username is invalid</div> -->
     <!-- <div *ngIf="!password.valid && myForm.touched">Password is invalid</div> -->
-    <div class="error-message" *ngIf="password.hasError('required') && myForm.touched">Password is required</div>
+    <div
+      class="error-message"
+      *ngIf="password.hasError('required') && myForm.touched"
+    >
+      Password is required
+    </div>
     <!-- <div *ngIf="!myForm.valid && myForm.touched">Form is invalid</div> -->
 
     <div class="form">
