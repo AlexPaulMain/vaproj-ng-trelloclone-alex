@@ -1,7 +1,14 @@
-<app-nav-bar (createNewProject)="createNewProject($event)"></app-nav-bar>
-<p>This is the main page</p>
-<div *ngIf="newProject">
-  <app-new-project
-    (cancelNewProject)="cancelNewProject($event)"
-  ></app-new-project>
+<div class="background">
+  <app-nav-bar></app-nav-bar>
+  <div *ngIf="newProject">
+    <app-new-project
+      (cancelNewProject)="cancelNewProject($event)"
+    ></app-new-project>
+  </div>
+  <div>
+    <app-project-list
+      *ngIf="displayProjectList"
+      (createNewProject)="createNewProject($event)"
+    ></app-project-list>
+  </div>
 </div>

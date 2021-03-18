@@ -2,10 +2,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-new-project',
@@ -16,7 +16,10 @@ export class NewProjectComponent implements OnInit {
   newProjectForm: FormGroup;
   @Output() cancelNewProject = new EventEmitter<boolean>();
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit(): void {
     this.initialiseForm();
@@ -24,15 +27,19 @@ export class NewProjectComponent implements OnInit {
 
   initialiseForm(): void {
     this.newProjectForm = this.formBuilder.group({
-      name: ['', Validators.required],
+      project_name: ['', Validators.required],
       description: ['', Validators.required],
-      startDate: ['', Validators.required],
-      targetDate: ['', Validators.required],
+      start_date: ['', Validators.required],
+      target_date: ['', Validators.required],
     });
   }
 
-  onSubmit(deets) {
-    console.log(deets);
+  onSubmit(newProjectDetails) {
+    console.log('New project details', newProjectDetails);
+    this.projectService.postProject(newProjectDetails).subscribe((data) => {
+      console.log(data);
+      this.outputCancelNewProject();
+    });
   }
 
   outputCancelNewProject() {

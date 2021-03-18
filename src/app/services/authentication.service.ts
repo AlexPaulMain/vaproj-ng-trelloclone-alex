@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, interval, Observable, throwError } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { BehaviorSubject, timer, Observable, Subject } from 'rxjs';
+import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 /* Models */
@@ -15,6 +15,7 @@ import { AccessToken } from '../models/access-token.model';
 export class AuthenticationService {
   currentUserSession: BehaviorSubject<UserSession>;
   refreshObs: Observable<number>;
+  isLogout: Subject<boolean>;
 
   constructor(private http: HttpClient, public router: Router) {
     if (localStorage.getItem('userSession')) {
@@ -36,7 +37,8 @@ export class AuthenticationService {
         JSON.stringify(this.currentUserSession.value)
       );
     }
-    this.refreshObs = interval(60000 * 4);
+
+    this.isLogout = new Subject<boolean>();
   }
 
   requestTokens(loginCredentials) {
@@ -49,7 +51,6 @@ export class AuthenticationService {
           'userSession',
           JSON.stringify(this.currentUserSession.value)
         );
-        this.startTokenRefresh();
         return userSession;
       })
     );
@@ -85,8 +86,15 @@ export class AuthenticationService {
     return userSession.refresh;
   }
 
+  startInterval() {
+    console.log('Interval started');
+    this.refreshObs = timer(1000, 60000 * 4);
+  }
+
   startTokenRefresh() {
-    this.refreshObs.subscribe((x) => this.refreshAccessToken());
+    this.refreshObs
+      .pipe(takeUntil(this.isLogout))
+      .subscribe((x) => this.refreshAccessToken());
   }
 
   refreshAccessToken() {
@@ -109,10 +117,6 @@ export class AuthenticationService {
 
   isAuthenticated(): boolean {
     console.log('currentUserSession', this.currentUserSession);
-    /*if (this.currentUserSession.value.access) {
-      return true;
-    }
-    return false;*/
     if (JSON.parse(localStorage.getItem('userSession')).access) {
       console.log('User authenticated');
       return true;
@@ -122,6 +126,7 @@ export class AuthenticationService {
   }
 
   logout() {
+    this.isLogout.next();
     this.router.navigate(['login']);
     this.currentUserSession.next({} as UserSession);
     localStorage.removeItem('userSession');

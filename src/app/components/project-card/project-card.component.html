@@ -1,0 +1,76 @@
+<mat-card class="card">
+  <mat-card-title *ngIf="!edit">{{ project.project_name }}</mat-card-title>
+  <mat-card-content *ngIf="!edit">
+    <div>{{ project.description }}</div>
+    <div>Start date: {{ getStartDate() }}</div>
+    <div>Target date: {{ getTargetDate() }}</div>
+  </mat-card-content>
+
+  <!-- Form card content -->
+  <mat-card-content *ngIf="edit">
+    <div>
+      <form [formGroup]="editProjectForm" class="container">
+        <mat-form-field class="form-item">
+          <mat-label>Project Name</mat-label>
+          <input formControlName="project_name" matInput />
+        </mat-form-field>
+        <mat-form-field class="form-item">
+          <mat-label>Project Description</mat-label>
+          <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+        <mat-form-field class="form-item">
+          <mat-label>Start Date</mat-label>
+          <input
+            formControlName="start_date"
+            matInput
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="form-item">
+          <mat-label>Target Date</mat-label>
+          <input
+            formControlName="target_date"
+            matInput
+            [matDatepicker]="picker2"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="flex">
+    <button mat-raised-button *ngIf="!edit" (click)="onEditClick()">
+      Edit
+    </button>
+    <button mat-raised-button *ngIf="edit" (click)="onCancelClick()">
+      Cancel
+    </button>
+    <button
+      class="save"
+      mat-raised-button
+      *ngIf="edit"
+      (click)="onSaveClick(editProjectForm.value)"
+    >
+      Save
+    </button>
+    <button
+      class="delete"
+      mat-raised-button
+      *ngIf="edit"
+      (click)="onDeleteClick()"
+      color="warn"
+    >
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>

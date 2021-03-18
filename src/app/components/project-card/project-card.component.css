@@ -1,0 +1,33 @@
+.card {
+  width: 100%;
+}
+
+.card:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+.delete {
+  align-items: right;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.save {
+  color: rgb(0, 0, 0);
+  align-content: left;
+  margin-left: 10px;
+}
+
+.flex {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+}
+
+.form-item {
+  width: fit-content;
+}

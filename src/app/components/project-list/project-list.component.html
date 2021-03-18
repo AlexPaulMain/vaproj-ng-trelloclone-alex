@@ -1,0 +1,16 @@
+<mat-card class="projects-list">
+  <mat-card-header class="header">
+    <mat-card-title>Projects</mat-card-title>
+    <button mat-raised-button class="button" (click)="outputCreateNewProject()">
+      Ceate new project
+    </button>
+  </mat-card-header>
+  <div class="list">
+    <app-project-card
+      class="item"
+      *ngFor="let project of projects"
+      [project]="project"
+      (projectsOutput)="updateProjects($event)"
+    ></app-project-card>
+  </div>
+</mat-card>

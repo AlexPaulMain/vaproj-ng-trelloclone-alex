@@ -1,5 +1,5 @@
 export class ProjectModel {
-  id: number;
+  id?: number;
   project_name: string;
   description: string;
   start_date: string;

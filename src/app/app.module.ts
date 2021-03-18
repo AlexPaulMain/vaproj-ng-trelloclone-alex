@@ -5,10 +5,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -22,6 +23,12 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { MainComponent } from './components/main/main.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NewProjectComponent } from './components/new-project/new-project.component';
+import { ProjectService } from './services/project.service';
+import { ProjectListComponent } from './components/project-list/project-list.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ProjectCardComponent } from './components/project-card/project-card.component';
+import { EditProjectComponent } from './components/edit-project/edit-project.component';
+import { DialogDeleteComponent } from './components/dialogs/dialog-delete/dialog-delete.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +37,12 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
     MainComponent,
     NavBarComponent,
     NewProjectComponent,
+    ProjectListComponent,
+    ProjectCardComponent,
+    EditProjectComponent,
+    DialogDeleteComponent,
   ],
+  entryComponents: [DialogDeleteComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -46,6 +58,8 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    DragDropModule,
+    MatDialogModule,
   ],
   providers: [
     AuthenticationService,
@@ -55,6 +69,7 @@ import { NewProjectComponent } from './components/new-project/new-project.compon
       multi: true,
     },
     AuthGuardService,
+    ProjectService,
   ],
   bootstrap: [AppComponent],
 })

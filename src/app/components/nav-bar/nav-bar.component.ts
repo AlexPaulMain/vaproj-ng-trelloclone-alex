@@ -9,17 +9,11 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
-  @Output() createNewProject = new EventEmitter<boolean>();
-
   constructor(private authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {}
 
   callLogout() {
     this.authenticationService.logout();
-  }
-
-  outputCreateNewProject() {
-    this.createNewProject.emit(true);
   }
 }

@@ -1,10 +1,10 @@
 <div class="container">
   <form
-    [formGroup]="newProjectForm"
-    (ngSubmit)="onSubmit(newProjectForm.value)"
+    [formGroup]="editProjectForm"
+    (ngSubmit)="onSubmit(editProjectForm.value)"
   >
     <mat-card>
-      <mat-card-title>New Project</mat-card-title>
+      <mat-card-title>Edit Project</mat-card-title>
       <mat-card-subtitle>Enter project details</mat-card-subtitle>
       <mat-card-content class="fields">
         <mat-form-field>
@@ -43,20 +43,8 @@
         </mat-form-field>
       </mat-card-content>
       <mat-card-actions>
-        <button
-          mat-raised-button
-          type="submit"
-          [disabled]="!newProjectForm.valid"
-        >
-          Create
-        </button>
-        <button
-          mat-raised-button
-          type="reset"
-          (click)="outputCancelNewProject()"
-        >
-          Cancel
-        </button>
+        <button mat-raised-button type="submit">Update</button>
+        <button mat-raised-button type="reset">Cancel</button>
       </mat-card-actions>
     </mat-card>
   </form>
