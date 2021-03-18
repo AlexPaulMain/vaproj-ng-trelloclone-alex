@@ -1,10 +1,12 @@
 <mat-card class="card">
-  <mat-card-title *ngIf="!edit">{{ project.project_name }}</mat-card-title>
-  <mat-card-content *ngIf="!edit">
-    <div>{{ project.description }}</div>
-    <div>Start date: {{ getStartDate() }}</div>
-    <div>Target date: {{ getTargetDate() }}</div>
-  </mat-card-content>
+  <div class="color-change" (click)="routeToProject()">
+    <mat-card-title *ngIf="!edit">{{ project.project_name }}</mat-card-title>
+    <mat-card-content *ngIf="!edit" class="content">
+      <div>{{ project.description }}</div>
+      <div>Start date: {{ getStartDate() }}</div>
+      <div>Target date: {{ getTargetDate() }}</div>
+    </mat-card-content>
+  </div>
 
   <!-- Form card content -->
   <mat-card-content *ngIf="edit">
@@ -49,7 +51,12 @@
   </mat-card-content>
 
   <mat-card-actions class="flex">
-    <button mat-raised-button *ngIf="!edit" (click)="onEditClick()">
+    <button
+      mat-raised-button
+      *ngIf="!edit"
+      color="primary"
+      (click)="onEditClick()"
+    >
       Edit
     </button>
     <button mat-raised-button *ngIf="edit" (click)="onCancelClick()">
@@ -59,6 +66,7 @@
       class="save"
       mat-raised-button
       *ngIf="edit"
+      color="primary"
       (click)="onSaveClick(editProjectForm.value)"
     >
       Save
@@ -70,7 +78,7 @@
       (click)="onDeleteClick()"
       color="warn"
     >
-      Delete
+      <mat-icon>delete_outline</mat-icon>
     </button>
   </mat-card-actions>
 </mat-card>

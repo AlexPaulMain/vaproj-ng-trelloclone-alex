@@ -1,0 +1,5 @@
+<app-nav-bar></app-nav-bar>
+<div *ngIf="loadProject">
+  <h1>{{ project.project_name }}</h1>
+  <button mat-raised-button (click)="openDialog()">Add section</button>
+</div>

@@ -36,4 +36,8 @@ export class ProjectService {
       })
     );
   }
+
+  getProject(id: number): Observable<ProjectModel> {
+    return this.http.get<ProjectModel>(`${APIURL}/project/${id}/`);
+  }
 }

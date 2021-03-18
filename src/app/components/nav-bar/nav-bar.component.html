@@ -1,6 +1,30 @@
+<!--
 <div>
   <ul>
     <li><button>Projects</button></li>
     <li class="logout"><button (click)="callLogout()">Logout</button></li>
   </ul>
 </div>
+-->
+
+<mat-toolbar color="primary">
+  <button
+    mat-flat-button
+    color="primary"
+    matTooltip="Go to projects"
+    matTooltipShowDelay="800"
+    [routerLink]="['/main']"
+  >
+    Projects
+  </button>
+  <span></span>
+  <span class="spacer"></span>
+  <button
+    mat-icon-button
+    matTooltip="logout"
+    matTooltipShowDelay="500"
+    (click)="callLogout()"
+  >
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Add Section</h2>
+<mat-dialog-content>
+  <form [formGroup]="newSectionForm">
+    <mat-form-field>
+      <mat-label>Heading</mat-label>
+      <input matInput formControlName="heading" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close mat-dialog-close="false">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    [disabled]="!newSectionForm.valid"
+    type="reset"
+    (click)="addSection(newSectionForm.value)"
+  >
+    Add
+  </button>
+</mat-dialog-actions>

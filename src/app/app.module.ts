@@ -10,6 +10,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -29,6 +32,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { EditProjectComponent } from './components/edit-project/edit-project.component';
 import { DialogDeleteComponent } from './components/dialogs/dialog-delete/dialog-delete.component';
+import { ProjectPageComponent } from './components/project-page/project-page.component';
+import { SectionComponent } from './components/section/section.component';
+import { DialogSectionComponent } from './components/dialogs/dialog-section/dialog-section.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +47,11 @@ import { DialogDeleteComponent } from './components/dialogs/dialog-delete/dialog
     ProjectCardComponent,
     EditProjectComponent,
     DialogDeleteComponent,
+    ProjectPageComponent,
+    SectionComponent,
+    DialogSectionComponent,
   ],
-  entryComponents: [DialogDeleteComponent],
+  entryComponents: [DialogDeleteComponent, DialogSectionComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -60,6 +69,9 @@ import { DialogDeleteComponent } from './components/dialogs/dialog-delete/dialog
     MatButtonModule,
     DragDropModule,
     MatDialogModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
   providers: [
     AuthenticationService,

@@ -1,4 +1,5 @@
-ul {
+/*Old nav bar stying*/
+/*ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -33,11 +34,10 @@ li button:focus {
   outline: none;
 }
 
-.logout {
-  float: right;
-}
-
-/* Change the link color to #111 (black) on hover */
 li a:hover {
   background-color: #111;
+}*/
+
+.spacer {
+  flex: 1 1 auto;
 }

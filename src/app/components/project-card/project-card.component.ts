@@ -86,4 +86,8 @@ export class ProjectCardComponent implements OnInit {
   outputProjects(projects: ProjectModel[]) {
     this.projectsOutput.emit(projects);
   }
+
+  routeToProject() {
+    this.router.navigate([`/project/${this.project.id}`]);
+  }
 }
