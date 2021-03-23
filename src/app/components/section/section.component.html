@@ -1,1 +1,70 @@
-<p>section works!</p>
+<div class="section">
+  <mat-card class="card">
+    <div>
+      <span class="inline">
+        <mat-card-title *ngIf="!edit">{{ section.heading }} </mat-card-title>
+      </span>
+      <span class="inline right">
+        <ng-content></ng-content>
+      </span>
+    </div>
+    <mat-card-subtitle class="subtitle" *ngIf="!edit">{{
+      section.description
+    }}</mat-card-subtitle>
+
+    <!-- Form card content -->
+    <mat-card *ngIf="edit" class="edit-card">
+      <mat-card-content>
+        <div>
+          <form [formGroup]="editSectionForm" class="container">
+            <mat-form-field class="form-item">
+              <mat-label>Section heading</mat-label>
+              <input formControlName="heading" matInput />
+            </mat-form-field>
+            <mat-form-field class="form-item">
+              <mat-label>Section description</mat-label>
+              <textarea formControlName="description" matInput></textarea>
+            </mat-form-field>
+          </form>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="buttons">
+          <button mat-raised-button (click)="onCancelClick()" *ngIf="edit">
+            Cancel
+          </button>
+          <button
+            mat-raised-button
+            (click)="onSaveClick(editSectionForm.value)"
+            *ngIf="edit"
+            color="primary"
+            [disabled]="!editSectionForm.valid"
+          >
+            Save
+          </button>
+          <button
+            class="delete"
+            mat-raised-button
+            *ngIf="edit"
+            (click)="onDeleteClick()"
+            color="warn"
+          >
+            <mat-icon>delete_outline</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card-content>
+      <!--Tasks will go here-->
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="buttons">
+        <button mat-raised-button (click)="onEditClick()" *ngIf="!edit">
+          Edit
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

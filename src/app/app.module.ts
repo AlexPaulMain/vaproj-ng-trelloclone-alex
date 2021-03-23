@@ -35,6 +35,7 @@ import { DialogDeleteComponent } from './components/dialogs/dialog-delete/dialog
 import { ProjectPageComponent } from './components/project-page/project-page.component';
 import { SectionComponent } from './components/section/section.component';
 import { DialogSectionComponent } from './components/dialogs/dialog-section/dialog-section.component';
+import { SectionService } from './services/section.service';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { DialogSectionComponent } from './components/dialogs/dialog-section/dial
     },
     AuthGuardService,
     ProjectService,
+    SectionService,
   ],
   bootstrap: [AppComponent],
 })

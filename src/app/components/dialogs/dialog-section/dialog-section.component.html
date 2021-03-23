@@ -1,14 +1,16 @@
 <h2 mat-dialog-title>Add Section</h2>
 <mat-dialog-content>
   <form [formGroup]="newSectionForm">
-    <mat-form-field>
-      <mat-label>Heading</mat-label>
-      <input matInput formControlName="heading" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Description</mat-label>
-      <input matInput formControlName="description" />
-    </mat-form-field>
+    <div class="container">
+      <mat-form-field>
+        <mat-label>Heading</mat-label>
+        <input matInput formControlName="heading" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" />
+      </mat-form-field>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>

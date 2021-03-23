@@ -1,5 +1,24 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="loadProject">
+<div *ngIf="loadProject" class="project">
   <h1>{{ project.project_name }}</h1>
   <button mat-raised-button (click)="openDialog()">Add section</button>
+  <div></div>
+  <div
+    class="list"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="reorderSections($event)"
+  >
+    <div cdkDrag class="box" *ngFor="let section of sections">
+      <app-section
+        [section]="section"
+        [projectId]="project.id"
+        (sectionsOutput)="updateSections($event)"
+      >
+        <div class="dragHandle">
+          <mat-icon class="dragIcon" cdkDragHandle>drag_indicator</mat-icon>
+        </div>
+      </app-section>
+    </div>
+  </div>
 </div>

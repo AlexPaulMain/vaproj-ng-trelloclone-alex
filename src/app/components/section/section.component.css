@@ -1,0 +1,36 @@
+.section {
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.card {
+  background-color: #3f51b5;
+  color: white;
+  width: 300px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.right {
+  float: right;
+  margin: 0;
+}
+
+.subtitle {
+  color: rgb(156, 156, 156);
+}
+
+.delete {
+  float: right;
+}
+
+.edit-card {
+  margin-top: 20px;
+}
+
+.buttons {
+  margin-bottom: 8px;
+  margin-left: 8px;
+}
