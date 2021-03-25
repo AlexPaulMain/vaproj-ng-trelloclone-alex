@@ -54,7 +54,7 @@ export class ProjectPageComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogSectionComponent);
     dialogRef.afterClosed().subscribe((formData) => {
-      if (formData != 'false') {
+      if (formData != 'false' && formData != undefined) {
         console.log('Data from dialog', formData);
         //add section formData to the api
         this.sectionService

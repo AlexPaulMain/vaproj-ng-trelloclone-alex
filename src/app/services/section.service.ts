@@ -10,7 +10,13 @@ import { ProjectModel } from '../models/project.model';
 
 @Injectable()
 export class SectionService {
+  tasks = {};
+
   constructor(private http: HttpClient) {}
+
+  storeTasks(tasks: Object) {
+    this.tasks = Object.assign(this.tasks, tasks);
+  }
 
   getSections(projectId: number): Observable<SectionModel[]> {
     return this.http.get<SectionModel[]>(

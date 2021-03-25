@@ -1,0 +1,61 @@
+<mat-dialog-content>
+  <div
+    (click)="onTaskInfoClick()"
+    *ngIf="!edit"
+    matTooltip="Click to edit"
+    matTooltipShowDelay="200"
+  >
+    <h2 mat-dialog-title>{{ data.heading }}</h2>
+    <mat-card-subtitle>{{ data.description }}</mat-card-subtitle>
+    <mat-card-subtitle>Start date: {{ formatStartDate() }}</mat-card-subtitle>
+    <mat-card-subtitle>Target date: {{ formatTargetDate() }}</mat-card-subtitle>
+  </div>
+  <form *ngIf="edit" [formGroup]="editTaskForm">
+    <mat-form-field>
+      <mat-label>Heading</mat-label>
+      <input matInput formControlName="heading" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="start_date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Target Date</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="target_date" />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <div>
+      <button
+        type="button"
+        mat-icon-button
+        (click)="onConfirmClick(editTaskForm.value)"
+        [mat-dialog-close]="editTaskForm.value"
+      >
+        <mat-icon class="confirm-icon">done</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="onCancelClick()">
+        <mat-icon class="cancel-icon">clear</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div>
+    <button mat-raised-button (click)="onCancelButtonClick()">Cancel</button>
+    <button
+      class="delete"
+      mat-raised-button
+      (click)="onDeleteClick()"
+      color="warn"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+</mat-dialog-actions>

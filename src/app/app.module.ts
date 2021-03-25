@@ -36,6 +36,9 @@ import { ProjectPageComponent } from './components/project-page/project-page.com
 import { SectionComponent } from './components/section/section.component';
 import { DialogSectionComponent } from './components/dialogs/dialog-section/dialog-section.component';
 import { SectionService } from './services/section.service';
+import { TaskComponent } from './components/task/task.component';
+import { DialogTaskComponent } from './components/dialogs/dialog-task/dialog-task.component';
+import { TaskService } from './services/task.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,8 @@ import { SectionService } from './services/section.service';
     ProjectPageComponent,
     SectionComponent,
     DialogSectionComponent,
+    TaskComponent,
+    DialogTaskComponent,
   ],
   entryComponents: [DialogDeleteComponent, DialogSectionComponent],
   imports: [
@@ -84,6 +89,7 @@ import { SectionService } from './services/section.service';
     AuthGuardService,
     ProjectService,
     SectionService,
+    TaskService,
   ],
   bootstrap: [AppComponent],
 })

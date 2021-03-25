@@ -9,8 +9,10 @@
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="reorderSections($event)"
   >
-    <div cdkDrag class="box" *ngFor="let section of sections">
+    <div class="box" cdkDropListGroup>
       <app-section
+        cdkDrag
+        *ngFor="let section of sections"
         [section]="section"
         [projectId]="project.id"
         (sectionsOutput)="updateSections($event)"

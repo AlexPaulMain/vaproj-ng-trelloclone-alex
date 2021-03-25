@@ -55,14 +55,101 @@
       </mat-card-actions>
     </mat-card>
 
-    <mat-card-content>
-      <!--Tasks will go here-->
+    <!--Tasks-->
+    <mat-card-content *ngIf="!edit">
+      <!--Task cards-->
+      <div
+        cdkDropList
+        id="{{ section.id }}"
+        (cdkDropListDropped)="reorderTasks($event)"
+        class="task-list"
+      >
+        <div class="task-div" *ngFor="let task of tasks">
+          <app-task
+            class="task"
+            [task]="task"
+            [sectionId]="section.id"
+            (tasksOutput)="updateTasks($event)"
+            cdkDrag
+          ></app-task>
+        </div>
+      </div>
+
+      <!--Add task form card-->
+      <mat-card *ngIf="addTask">
+        <mat-card-content>
+          <!--Form stuff-->
+          <form [formGroup]="addTaskForm">
+            <mat-form-field>
+              <mat-label>Task heading</mat-label>
+              <input matInput formControlName="heading" />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Task description</mat-label>
+              <input matInput formControlName="description" />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Start Date</mat-label>
+              <input
+                formControlName="start_date"
+                matInput
+                [matDatepicker]="picker"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Target Date</mat-label>
+              <input
+                formControlName="target_date"
+                matInput
+                [matDatepicker]="picker2"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="buttons">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="!addTaskForm.valid"
+              (click)="onSaveTaskClick(addTaskForm.value)"
+            >
+              Add
+            </button>
+            <button
+              class="cancel-icon"
+              mat-icon-button
+              (click)="onCancelTaskClick()"
+            >
+              <mat-icon [inline]="true">clear</mat-icon>
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
     </mat-card-content>
 
     <mat-card-actions>
       <div class="buttons">
         <button mat-raised-button (click)="onEditClick()" *ngIf="!edit">
           Edit
+        </button>
+        <button
+          class="add-icon"
+          mat-icon-button
+          *ngIf="!edit"
+          (click)="onAddTaskClick()"
+        >
+          <mat-icon [inline]="true">add_box</mat-icon>
         </button>
       </div>
     </mat-card-actions>
