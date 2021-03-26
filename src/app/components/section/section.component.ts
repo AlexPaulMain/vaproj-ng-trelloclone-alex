@@ -20,10 +20,10 @@ import {
 export class SectionComponent implements OnInit {
   @Input() section: SectionModel;
   @Input() projectId: number;
-  edit: boolean = false;
+  edit = false;
   editSectionForm: FormGroup;
   @Output() sectionsOutput = new EventEmitter<SectionModel[]>();
-  addTask: boolean = false;
+  addTask = false;
   addTaskForm: FormGroup;
   tasks: TaskModel[];
   userId: number = JSON.parse(localStorage.getItem('userSession')).id;
@@ -47,7 +47,7 @@ export class SectionComponent implements OnInit {
       target_date: [''],
       user: [this.userId],
     });
-    //populate tasks array with tasks from api
+    // populates tasks array with tasks from api
     this.taskService
       .getTasks(this.section.id)
       .subscribe((tasks: TaskModel[]) => {
@@ -56,16 +56,16 @@ export class SectionComponent implements OnInit {
       });
   }
 
-  onEditClick() {
+  onEditClick(): void {
     this.edit = true;
   }
 
-  onCancelClick() {
+  onCancelClick(): void {
     this.edit = false;
     this.editSectionForm.reset(this.section);
   }
 
-  onSaveClick(formData: SectionModel) {
+  onSaveClick(formData: SectionModel): void {
     // api update call
     this.sectionService
       .updateSection(this.section.id, formData, this.projectId)
@@ -75,66 +75,76 @@ export class SectionComponent implements OnInit {
     this.edit = false;
   }
 
-  onDeleteClick() {
-    let dialogRef = this.dialog.open(DialogDeleteComponent, {
+  onDeleteClick(): void {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
       data: { deleteType: 'Section', projectName: this.section.heading },
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      if (result == 'true') {
+      if (result === 'true') {
         console.log('SECTION DELETED');
-        //call api section delete
+        // call api section delete
         this.sectionService
           .deleteSection(this.section.id, this.projectId)
           .subscribe((sections) => {
             console.log(sections);
-            //output sections to parent
+            // output sections to parent
             this.outputSections(sections);
           });
       }
     });
   }
 
-  onAddTaskClick() {
+  onAddTaskClick(): void {
     this.addTask = true;
   }
 
-  onCancelTaskClick() {
+  onCancelTaskClick(): void {
     this.addTask = false;
     this.addTaskForm.reset({ user: this.userId });
   }
 
-  onSaveTaskClick(formData: TaskModel) {
-    console.log('Form data from new task', formData);
+  onSaveTaskClick(formData: TaskModel): void {
+    // determine task position in list
+    let taskPos: number;
+    if (this.tasks.length === 0) {
+      taskPos = 0;
+    } else {
+      taskPos = this.tasks[this.tasks.length - 1].task_order + 1;
+    }
+    formData = { ...formData, ...{ task_order: taskPos } };
+    console.log('Formdata plus position', formData);
+    // add new task to api
     this.taskService
       .addTask(formData, this.section.id)
       .subscribe((tasks: TaskModel[]) => {
         this.tasks = tasks;
+        this.sectionService.storeTasks({ [this.section.id]: tasks });
       });
     this.addTask = false;
     this.addTaskForm.reset({ user: this.userId });
   }
 
-  outputSections(sections: SectionModel[]) {
+  outputSections(sections: SectionModel[]): void {
     this.sectionsOutput.emit(sections);
   }
 
-  updateTasks(tasks) {
+  updateTasks(tasks): void {
     this.tasks = tasks;
   }
 
-  reorderTasks(event: CdkDragDrop<TaskModel[]>) {
+  reorderTasks(event: CdkDragDrop<TaskModel[]>): void {
     console.log(event.previousContainer.id);
     console.log(event.previousIndex, event.currentIndex);
 
-    let tasksCopy: TaskModel[] = [...this.tasks];
-    let prevContainerTasksCopy = [
+    const tasksCopy: TaskModel[] = [...this.tasks];
+    const prevContainerTasksCopy = [
       ...this.sectionService.tasks[event.previousContainer.id],
     ];
     let followsId: number;
 
-    //local drag and drop updates
-    if (this.section.id.toString() == event.previousContainer.id) {
+    // local drag and drop updates
+    if (this.section.id.toString() === event.previousContainer.id) {
       console.log('same container');
       moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
       this.sectionService.tasks[this.section.id] = this.tasks;
@@ -144,7 +154,7 @@ export class SectionComponent implements OnInit {
       if (event.currentIndex > event.previousIndex) {
         followsId = tasksCopy[event.currentIndex].id;
       } else {
-        if (event.currentIndex == 0) {
+        if (event.currentIndex === 0) {
           console.log('should stay at 0');
           followsId = 0;
         } else {
@@ -163,7 +173,7 @@ export class SectionComponent implements OnInit {
 
       /* if statement to determine which task the moved task should follow
       (different list movement) */
-      if (event.currentIndex == 0) {
+      if (event.currentIndex === 0) {
         console.log('should stay at 0');
         followsId = 0;
       } else {
@@ -171,6 +181,7 @@ export class SectionComponent implements OnInit {
       }
     }
 
+    console.log(prevContainerTasksCopy);
     // makes api call to update task positions
     this.taskService
       .moveTask(

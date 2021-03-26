@@ -25,7 +25,11 @@ export class TaskService {
     return this.http.get<TaskModel[]>(`${APIURL}/section/${sectionId}/task/`);
   }
 
-  updateTask(id: number, task: TaskModel, sectionId: number) {
+  updateTask(
+    id: number,
+    task: TaskModel,
+    sectionId: number
+  ): Observable<TaskModel[]> {
     return this.http.put(`${APIURL}/task/${id}/`, task).pipe(
       switchMap(() => {
         return this.getTasks(sectionId);
@@ -41,8 +45,13 @@ export class TaskService {
     );
   }
 
-  moveTask(sectionId: number, id: number, followsId: number, task: TaskModel) {
-    return this.http.put(
+  moveTask(
+    sectionId: number,
+    id: number,
+    followsId: number,
+    task: TaskModel
+  ): Observable<TaskModel> {
+    return this.http.put<TaskModel>(
       `${APIURL}/section/${sectionId}/task/${id}/insert_after/${followsId}/`,
       task
     );

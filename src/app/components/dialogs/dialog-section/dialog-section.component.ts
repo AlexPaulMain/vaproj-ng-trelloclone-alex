@@ -1,15 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SectionModel } from '../../../models/section.model';
 
 @Component({
@@ -34,14 +25,14 @@ export class DialogSectionComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  initialiseForm() {
+  initialiseForm(): void {
     this.newSectionForm = this.formbuilder.group({
       heading: ['', Validators.required],
       description: ['', Validators.required],
     });
   }
 
-  addSection(formData: SectionModel) {
+  addSection(formData: SectionModel): void {
     this.dialogRef.close(formData);
   }
 }

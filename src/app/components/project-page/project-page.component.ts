@@ -16,7 +16,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class ProjectPageComponent implements OnInit {
   id: number;
-  loadProject: boolean = false;
+  loadProject = false;
   project: ProjectModel;
   sections: SectionModel[];
 
@@ -28,7 +28,7 @@ export class ProjectPageComponent implements OnInit {
     private dialog: MatDialog
   ) {
     activatedRoute.params.subscribe((params) => {
-      this.id = params['id'];
+      this.id = params.id;
     });
   }
 
@@ -44,7 +44,7 @@ export class ProjectPageComponent implements OnInit {
       });
   }
 
-  getProject(id: number) {
+  getProject(id: number): void {
     this.projectService.getProject(id).subscribe((project: ProjectModel) => {
       this.project = project;
       this.loadProject = true;
@@ -54,9 +54,9 @@ export class ProjectPageComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogSectionComponent);
     dialogRef.afterClosed().subscribe((formData) => {
-      if (formData != 'false' && formData != undefined) {
+      if (formData !== 'false' && formData !== undefined) {
         console.log('Data from dialog', formData);
-        //add section formData to the api
+        // add section formData to the api
         this.sectionService
           .addSection(this.id, formData)
           .subscribe((sections: SectionModel[]) => {
@@ -67,11 +67,11 @@ export class ProjectPageComponent implements OnInit {
     });
   }
 
-  reorderSections(event: CdkDragDrop<SectionModel[]>) {
-    //create copy of sections as to reference original array
-    let sectionsCopy: SectionModel[] = [...this.sections];
+  reorderSections(event: CdkDragDrop<SectionModel[]>): void {
+    // create copy of sections as to reference original array
+    const sectionsCopy: SectionModel[] = [...this.sections];
 
-    //move items in main sections array
+    // move items in main sections array
     console.log(this.sections, event.previousIndex, event.currentIndex);
     moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
 
@@ -79,7 +79,7 @@ export class ProjectPageComponent implements OnInit {
     if (event.currentIndex > event.previousIndex) {
       followId = sectionsCopy[event.currentIndex].id;
     } else {
-      if (event.currentIndex == 0) {
+      if (event.currentIndex === 0) {
         console.log('should stay at 0');
         followId = 0;
       } else {
@@ -98,7 +98,7 @@ export class ProjectPageComponent implements OnInit {
       });
   }
 
-  updateSections(sections: SectionModel[]) {
+  updateSections(sections: SectionModel[]): void {
     this.sections = sections;
   }
 }

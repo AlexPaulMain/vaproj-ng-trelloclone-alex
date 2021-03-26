@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 export class ProjectService {
   constructor(private http: HttpClient) {}
 
-  postProject(projectDetails: ProjectModel): Observable<Object> {
+  postProject(projectDetails: ProjectModel): Observable<ProjectModel> {
     return this.http.post<ProjectModel>(`${APIURL}/project/`, projectDetails);
   }
 
@@ -19,7 +19,10 @@ export class ProjectService {
     return this.http.get<ProjectModel[]>(`${APIURL}/project/`);
   }
 
-  updateProject(id: number, projectDetails: ProjectModel) {
+  updateProject(
+    id: number,
+    projectDetails: ProjectModel
+  ): Observable<ProjectModel[]> {
     return this.http
       .put<ProjectModel>(`${APIURL}/project/${id}/`, projectDetails)
       .pipe(
@@ -29,7 +32,7 @@ export class ProjectService {
       );
   }
 
-  deleteProject(id: number) {
+  deleteProject(id: number): Observable<ProjectModel[]> {
     return this.http.delete(`${APIURL}/project/${id}/`).pipe(
       switchMap(() => {
         return this.getProjects();

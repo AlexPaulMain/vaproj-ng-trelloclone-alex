@@ -10,20 +10,20 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class MainComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService) {}
 
-  newProject: boolean = false;
-  displayProjectList: boolean = true;
+  newProject = false;
+  displayProjectList = true;
 
   ngOnInit(): void {
     this.authenticationService.startInterval();
     this.authenticationService.startTokenRefresh();
   }
 
-  createNewProject(value) {
+  createNewProject(value): void {
     this.newProject = value;
     this.displayProjectList = !value;
   }
 
-  cancelNewProject(value) {
+  cancelNewProject(value): void {
     this.newProject = value;
     this.displayProjectList = !value;
   }

@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ProjectCardComponent implements OnInit {
   @Input() project: ProjectModel;
-  edit: boolean = false;
+  edit = false;
   editProjectForm: FormGroup;
   @Output() projectsOutput = new EventEmitter<ProjectModel[]>();
 
@@ -33,12 +33,12 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
-  onEditClick() {
+  onEditClick(): void {
     this.edit = true;
   }
 
-  onSaveClick(formData) {
-    //call project update api
+  onSaveClick(formData): void {
+    // call project update api
     this.projectService
       .updateProject(this.project.id, formData)
       .subscribe((projects: ProjectModel[]) => {
@@ -48,17 +48,17 @@ export class ProjectCardComponent implements OnInit {
     this.edit = false;
   }
 
-  onCancelClick() {
+  onCancelClick(): void {
     this.edit = false;
   }
 
-  onDeleteClick() {
-    let dialogRef = this.dialog.open(DialogDeleteComponent, {
+  onDeleteClick(): void {
+    const dialogRef = this.dialog.open(DialogDeleteComponent, {
       data: { deleteType: 'Project', projectName: this.project.project_name },
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
-      if (result == 'true') {
+      if (result === 'true') {
         console.log('PROJECT DELETED');
         this.projectService
           .deleteProject(this.project.id)
@@ -69,25 +69,25 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
-  getTargetDate() {
-    let date = new Date(Date.parse(this.project.target_date));
+  getTargetDate(): string {
+    const date = new Date(Date.parse(this.project.target_date));
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
   }
 
-  getStartDate() {
-    let date = new Date(Date.parse(this.project.start_date));
+  getStartDate(): string {
+    const date = new Date(Date.parse(this.project.start_date));
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
   }
 
-  outputProjects(projects: ProjectModel[]) {
+  outputProjects(projects: ProjectModel[]): void {
     this.projectsOutput.emit(projects);
   }
 
-  routeToProject() {
+  routeToProject(): void {
     this.router.navigate([`/project/${this.project.id}`]);
   }
 }

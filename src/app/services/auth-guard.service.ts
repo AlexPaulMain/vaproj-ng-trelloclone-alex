@@ -11,7 +11,7 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(): boolean {
     if (!this.authenticationService.isAuthenticated()) {
-      //this.router.navigate(['login']);
+      // this.router.navigate(['login']);
       console.log('This route is not allowed');
       this.authenticationService.logout();
       console.log('Automatic logout');

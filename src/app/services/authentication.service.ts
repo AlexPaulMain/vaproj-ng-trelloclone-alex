@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, timer, Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import {
+  BehaviorSubject,
+  timer,
+  Observable,
+  Subject,
+  Subscription,
+} from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -41,10 +47,10 @@ export class AuthenticationService {
     this.isLogout = new Subject<boolean>();
   }
 
-  requestTokens(loginCredentials) {
+  requestTokens(loginCredentials): Observable<UserSession> {
     return this.http.post<Tokens>(`${APIURL}/token/`, loginCredentials).pipe(
       map((tokens: Tokens) => {
-        let userSession: UserSession = { ...tokens };
+        const userSession: UserSession = { ...tokens };
         console.log('currentUserSession', this.currentUserSession);
         this.currentUserSession.next(userSession);
         localStorage.setItem(
@@ -56,7 +62,7 @@ export class AuthenticationService {
     );
   }
 
-  requestUser(userSession) {
+  requestUser(userSession): Observable<UserSession> {
     return this.http.get(`${APIURL}/currentuser/`).pipe(
       map((user: User) => {
         userSession = { ...user, ...userSession };
@@ -70,35 +76,35 @@ export class AuthenticationService {
     );
   }
 
-  login(loginCredentials) {
+  login(loginCredentials): Observable<UserSession> {
     return this.requestTokens(loginCredentials).pipe(
       switchMap((userSession: UserSession) => this.requestUser(userSession))
     );
   }
 
-  getAccessToken() {
-    let userSession = JSON.parse(localStorage.getItem('userSession'));
+  getAccessToken(): string {
+    const userSession = JSON.parse(localStorage.getItem('userSession'));
     return userSession.access;
   }
 
-  getRefreshToken() {
-    let userSession = JSON.parse(localStorage.getItem('userSession'));
+  getRefreshToken(): string {
+    const userSession = JSON.parse(localStorage.getItem('userSession'));
     return userSession.refresh;
   }
 
-  startInterval() {
+  startInterval(): void {
     console.log('Interval started');
     this.refreshObs = timer(1000, 60000 * 4);
   }
 
-  startTokenRefresh() {
+  startTokenRefresh(): void {
     this.refreshObs
       .pipe(takeUntil(this.isLogout))
       .subscribe((x) => this.refreshAccessToken());
   }
 
-  refreshAccessToken() {
-    let tempUserSession: UserSession = this.currentUserSession.value;
+  refreshAccessToken(): Subscription {
+    const tempUserSession: UserSession = this.currentUserSession.value;
     return this.http
       .post(`${APIURL}/token/refresh/`, { refresh: this.getRefreshToken() })
       .pipe(
@@ -125,7 +131,7 @@ export class AuthenticationService {
     return false;
   }
 
-  logout() {
+  logout(): void {
     this.isLogout.next();
     this.router.navigate(['login']);
     this.currentUserSession.next({} as UserSession);

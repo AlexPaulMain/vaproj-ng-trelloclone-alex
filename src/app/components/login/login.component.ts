@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
       password: ['9ZmvnqK1G4rgPrTCJX', Validators.required],
     });
 
-    this.username = this.myForm.controls['username'];
-    this.password = this.myForm.controls['password'];
+    this.username = this.myForm.controls.username;
+    this.password = this.myForm.controls.password;
   }
 
   ngOnInit(): void {}
@@ -47,9 +47,6 @@ export class LoginComponent implements OnInit {
             this.snackBar.open('Login Successful', 'Close', { duration: 3000 }),
             this.router.navigate(['/main']);
         }
-      }),
-      (error: any) => {
-        console.log(error);
-      };
+      });
   }
 }

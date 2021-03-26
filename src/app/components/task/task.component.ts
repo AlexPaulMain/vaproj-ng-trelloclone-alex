@@ -42,8 +42,8 @@ export class TaskComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((formData) => {
       // update api
-      if (formData == 'delete') {
-        //make api task delete call
+      if (formData === 'delete') {
+        // make api task delete call
         this.taskService
           .deleteTask(this.task.id, this.sectionId)
           .subscribe((tasks) => {
@@ -51,7 +51,7 @@ export class TaskComponent implements OnInit {
             console.log(tasks);
           });
         console.log('DELETED TASK');
-      } else if (formData != undefined) {
+      } else if (formData !== undefined) {
         this.taskService
           .updateTask(this.task.id, formData, this.sectionId)
           .subscribe((tasks) => {
@@ -62,7 +62,7 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  outputTasks(tasks: TaskModel[]) {
+  outputTasks(tasks: TaskModel[]): void {
     this.tasksOutput.emit(tasks);
   }
 }

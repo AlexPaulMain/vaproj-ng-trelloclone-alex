@@ -1,1 +1,1 @@
-export const APIURL: string = 'https://vaproj.itstudio.ie/api';
+export const APIURL = 'https://vaproj.itstudio.ie/api';

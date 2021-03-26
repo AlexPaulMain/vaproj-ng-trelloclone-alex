@@ -34,7 +34,7 @@ export class NewProjectComponent implements OnInit {
     });
   }
 
-  onSubmit(newProjectDetails) {
+  onSubmit(newProjectDetails): void {
     console.log('New project details', newProjectDetails);
     this.projectService.postProject(newProjectDetails).subscribe((data) => {
       console.log(data);
@@ -42,7 +42,7 @@ export class NewProjectComponent implements OnInit {
     });
   }
 
-  outputCancelNewProject() {
+  outputCancelNewProject(): void {
     this.cancelNewProject.emit(false);
   }
 }

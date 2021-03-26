@@ -18,18 +18,18 @@ export class ProjectListComponent implements OnInit {
     this.getProjects();
   }
 
-  getProjects() {
+  getProjects(): void {
     this.projectService.getProjects().subscribe((data) => {
       console.log(data);
       this.projects = data;
     });
   }
 
-  outputCreateNewProject() {
+  outputCreateNewProject(): void {
     this.createNewProject.emit(true);
   }
 
-  updateProjects(projects: ProjectModel[]) {
+  updateProjects(projects: ProjectModel[]): void {
     this.projects = projects;
   }
 }

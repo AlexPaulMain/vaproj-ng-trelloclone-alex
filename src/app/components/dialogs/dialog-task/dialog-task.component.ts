@@ -13,7 +13,7 @@ import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component'
   styleUrls: ['./dialog-task.component.css'],
 })
 export class DialogTaskComponent implements OnInit {
-  edit: boolean = false;
+  edit = false;
   editTaskForm: FormGroup;
 
   constructor(
@@ -37,47 +37,47 @@ export class DialogTaskComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onTaskInfoClick() {
+  onTaskInfoClick(): void {
     this.edit = true;
   }
 
-  onConfirmClick(formData) {
+  onConfirmClick(formData): void {
     // update tasks (make api call)
     this.editTaskForm.reset(this.data);
     this.edit = false;
   }
 
-  onCancelClick() {
+  onCancelClick(): void {
     this.editTaskForm.reset(this.data);
     this.edit = false;
   }
 
-  onCancelButtonClick() {
+  onCancelButtonClick(): void {
     this.dialogRef.close();
   }
 
-  onDeleteClick() {
-    let dialogRefDelete = this.dialog.open(DialogDeleteComponent, {
+  onDeleteClick(): void {
+    const dialogRefDelete = this.dialog.open(DialogDeleteComponent, {
       data: { deleteType: 'Task', projectName: this.data.heading },
     });
     dialogRefDelete.afterClosed().subscribe((result) => {
       console.log(result);
-      if (result == 'true') {
+      if (result === 'true') {
         console.log('SECTION DELETED');
         this.dialogRef.close('delete');
       }
     });
   }
 
-  formatStartDate() {
-    let date = new Date(Date.parse(this.data.start_date));
+  formatStartDate(): string {
+    const date = new Date(Date.parse(this.data.start_date));
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
   }
 
-  formatTargetDate() {
-    let date = new Date(Date.parse(this.data.target_date));
+  formatTargetDate(): string {
+    const date = new Date(Date.parse(this.data.target_date));
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );

@@ -20,7 +20,7 @@ export class EditProjectComponent implements OnInit {
     });
   }
 
-  onSubmit(editProjectDeatails) {
+  onSubmit(editProjectDeatails): void {
     console.log(editProjectDeatails);
   }
 }
