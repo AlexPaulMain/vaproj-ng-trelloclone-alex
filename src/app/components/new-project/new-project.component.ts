@@ -25,6 +25,9 @@ export class NewProjectComponent implements OnInit {
     this.initialiseForm();
   }
 
+  /**
+   * Initialise newProjectForm using FormBuilder
+   */
   initialiseForm(): void {
     this.newProjectForm = this.formBuilder.group({
       project_name: ['', Validators.required],
@@ -34,6 +37,10 @@ export class NewProjectComponent implements OnInit {
     });
   }
 
+  /**
+   * On form submission this functon is called
+   * @param newProjectDetails form data
+   */
   onSubmit(newProjectDetails): void {
     console.log('New project details', newProjectDetails);
     this.projectService.postProject(newProjectDetails).subscribe((data) => {
@@ -42,6 +49,9 @@ export class NewProjectComponent implements OnInit {
     });
   }
 
+  /**
+   * Output 'false' to parent component
+   */
   outputCancelNewProject(): void {
     this.cancelNewProject.emit(false);
   }

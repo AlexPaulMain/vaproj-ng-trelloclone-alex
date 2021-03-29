@@ -44,6 +44,10 @@ export class ProjectPageComponent implements OnInit {
       });
   }
 
+  /**
+   * Make api call from project service to retrieve project data
+   * @param id project id of type number
+   */
   getProject(id: number): void {
     this.projectService.getProject(id).subscribe((project: ProjectModel) => {
       this.project = project;
@@ -51,6 +55,9 @@ export class ProjectPageComponent implements OnInit {
     });
   }
 
+  /**
+   * Opens section dialog and adds section to database if section data is provided and submitted
+   */
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogSectionComponent);
     dialogRef.afterClosed().subscribe((formData) => {
@@ -67,6 +74,10 @@ export class ProjectPageComponent implements OnInit {
     });
   }
 
+  /**
+   * Updates section position based on drag event positionings
+   * @param event CdkDragDrop of type SectionModel[]
+   */
   reorderSections(event: CdkDragDrop<SectionModel[]>): void {
     // create copy of sections as to reference original array
     const sectionsCopy: SectionModel[] = [...this.sections];
@@ -87,6 +98,7 @@ export class ProjectPageComponent implements OnInit {
       }
     }
 
+    // api call to update section position
     this.sectionService
       .moveSection(
         sectionsCopy[event.previousIndex],
@@ -98,6 +110,10 @@ export class ProjectPageComponent implements OnInit {
       });
   }
 
+  /**
+   * Sets sections array to given array of sections
+   * @param sections sections array of type SectionModel[]
+   */
   updateSections(sections: SectionModel[]): void {
     this.sections = sections;
   }

@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-
 import { ProjectModel } from '../../models/project.model';
 
 @Component({
@@ -18,6 +17,9 @@ export class ProjectListComponent implements OnInit {
     this.getProjects();
   }
 
+  /**
+   * Retrieve and set array of all projects
+   */
   getProjects(): void {
     this.projectService.getProjects().subscribe((data) => {
       console.log(data);
@@ -25,10 +27,17 @@ export class ProjectListComponent implements OnInit {
     });
   }
 
+  /**
+   * Output createNewProject boolean as true to parent component
+   */
   outputCreateNewProject(): void {
     this.createNewProject.emit(true);
   }
 
+  /**
+   * Set projects array to array of given projects
+   * @param projects array of projects of type ProjectModel[]
+   */
   updateProjects(projects: ProjectModel[]): void {
     this.projects = projects;
   }

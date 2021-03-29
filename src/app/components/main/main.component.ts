@@ -1,4 +1,3 @@
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 
@@ -18,12 +17,11 @@ export class MainComponent implements OnInit {
     this.authenticationService.startTokenRefresh();
   }
 
-  createNewProject(value): void {
-    this.newProject = value;
-    this.displayProjectList = !value;
-  }
-
-  cancelNewProject(value): void {
+  /**
+   * Sets html display booleans to appropriate values output from project list child component
+   * @param value boolean
+   */
+  updateDisplay(value): void {
     this.newProject = value;
     this.displayProjectList = !value;
   }

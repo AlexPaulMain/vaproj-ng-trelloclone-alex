@@ -36,10 +36,12 @@ export class SectionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // initialises editSectionForm using FormBuilder
     this.editSectionForm = this.formBuilder.group({
       heading: [this.section.heading, Validators.required],
       description: [this.section.description, Validators.required],
     });
+    // initialises addTaskForm using FormBuilder
     this.addTaskForm = this.formBuilder.group({
       heading: ['', Validators.required],
       description: ['', Validators.required],
@@ -56,15 +58,25 @@ export class SectionComponent implements OnInit {
       });
   }
 
+  /**
+   * Sets edit variable to true
+   */
   onEditClick(): void {
     this.edit = true;
   }
 
+  /**
+   * Sets edit variable to false and resets form to previous values
+   */
   onCancelClick(): void {
     this.edit = false;
     this.editSectionForm.reset(this.section);
   }
 
+  /**
+   * Makes call to update section data and sets edit to false
+   * @param formData form data of type SectionModel
+   */
   onSaveClick(formData: SectionModel): void {
     // api update call
     this.sectionService
@@ -75,6 +87,9 @@ export class SectionComponent implements OnInit {
     this.edit = false;
   }
 
+  /**
+   * Open delete dialog and delete current section if dialog close value is true
+   */
   onDeleteClick(): void {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       data: { deleteType: 'Section', projectName: this.section.heading },
@@ -95,15 +110,25 @@ export class SectionComponent implements OnInit {
     });
   }
 
+  /**
+   * Set addTask variable to true
+   */
   onAddTaskClick(): void {
     this.addTask = true;
   }
 
+  /**
+   * Set addTask variable to false and reset addTaskForm user field to the current userId
+   */
   onCancelTaskClick(): void {
     this.addTask = false;
     this.addTaskForm.reset({ user: this.userId });
   }
 
+  /**
+   * Determine new task position in list and make add task api call
+   * @param formData form data for new task of type TaskModel
+   */
   onSaveTaskClick(formData: TaskModel): void {
     // determine task position in list
     let taskPos: number;
@@ -125,14 +150,26 @@ export class SectionComponent implements OnInit {
     this.addTaskForm.reset({ user: this.userId });
   }
 
+  /**
+   * Output sections array to parent component
+   * @param sections sections array of type SectionModel[]
+   */
   outputSections(sections: SectionModel[]): void {
     this.sectionsOutput.emit(sections);
   }
 
+  /**
+   * Set tasks array to given array of tasks
+   * @param tasks array of tasks
+   */
   updateTasks(tasks): void {
     this.tasks = tasks;
   }
 
+  /**
+   * Updates task position based on drag event positionings
+   * @param event CdkDragDrop of type TaskModel[]
+   */
   reorderTasks(event: CdkDragDrop<TaskModel[]>): void {
     console.log(event.previousContainer.id);
     console.log(event.previousIndex, event.currentIndex);

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProjectModel } from 'src/app/models/project.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialogs/dialog-delete/dialog-delete.component';
 import { ProjectService } from '../../services/project.service';
@@ -25,6 +25,7 @@ export class ProjectCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Initialise form
     this.editProjectForm = this.formBuilder.group({
       project_name: [this.project.project_name],
       description: [this.project.description],
@@ -33,10 +34,17 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Set edit variable to true
+   */
   onEditClick(): void {
     this.edit = true;
   }
 
+  /**
+   * Make call to project service to update project data on database
+   * @param formData form data
+   */
   onSaveClick(formData): void {
     // call project update api
     this.projectService
@@ -48,10 +56,16 @@ export class ProjectCardComponent implements OnInit {
     this.edit = false;
   }
 
+  /**
+   * Set edit variable to false
+   */
   onCancelClick(): void {
     this.edit = false;
   }
 
+  /**
+   * Open delete dialog and delete current project if the delete result is true
+   */
   onDeleteClick(): void {
     const dialogRef = this.dialog.open(DialogDeleteComponent, {
       data: { deleteType: 'Project', projectName: this.project.project_name },
@@ -69,6 +83,10 @@ export class ProjectCardComponent implements OnInit {
     });
   }
 
+  /**
+   * Return project target date in a more readable format
+   * @returns string
+   */
   getTargetDate(): string {
     const date = new Date(Date.parse(this.project.target_date));
     return (
@@ -76,6 +94,10 @@ export class ProjectCardComponent implements OnInit {
     );
   }
 
+  /**
+   * Return project start data in a more readable format
+   * @returns string
+   */
   getStartDate(): string {
     const date = new Date(Date.parse(this.project.start_date));
     return (
@@ -83,10 +105,17 @@ export class ProjectCardComponent implements OnInit {
     );
   }
 
+  /**
+   * Output projects array to parent component
+   * @param projects array of project of type ProjectModel[]
+   */
   outputProjects(projects: ProjectModel[]): void {
     this.projectsOutput.emit(projects);
   }
 
+  /**
+   * Navigate to the route of the project page for the current project card
+   */
   routeToProject(): void {
     this.router.navigate([`/project/${this.project.id}`]);
   }

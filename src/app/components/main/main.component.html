@@ -2,13 +2,13 @@
   <app-nav-bar></app-nav-bar>
   <div *ngIf="newProject">
     <app-new-project
-      (cancelNewProject)="cancelNewProject($event)"
+      (cancelNewProject)="updateDisplay($event)"
     ></app-new-project>
   </div>
   <div>
     <app-project-list
       *ngIf="displayProjectList"
-      (createNewProject)="createNewProject($event)"
+      (createNewProject)="updateDisplay($event)"
     ></app-project-list>
   </div>
 </div>

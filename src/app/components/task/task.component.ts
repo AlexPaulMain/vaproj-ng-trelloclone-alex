@@ -1,16 +1,5 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  Inject,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TaskModel } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task.service';
 import { DialogTaskComponent } from '../dialogs/dialog-task/dialog-task.component';
@@ -29,6 +18,11 @@ export class TaskComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Open task dialog and input required data.
+   * Update task information or delete task depending on dialog output
+   * data on close
+   */
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogTaskComponent, {
       data: {
@@ -64,6 +58,10 @@ export class TaskComponent implements OnInit {
     });
   }
 
+  /**
+   * Output given tasks array to parent component
+   * @param tasks tasks array of type TaskModel[]
+   */
   outputTasks(tasks: TaskModel[]): void {
     this.tasksOutput.emit(tasks);
   }

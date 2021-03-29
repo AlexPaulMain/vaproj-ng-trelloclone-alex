@@ -21,10 +21,16 @@ export class NoteComponent implements OnInit {
     this.noteFormControl.setValue(this.note.content);
   }
 
+  /**
+   * Set edit variable to true when the user clicks on the note
+   */
   onNoteClick(): void {
     this.edit = true;
   }
 
+  /**
+   * Update the note data both locally and on the database and set edit variable to false
+   */
   onSaveNoteClick(): void {
     this.note.content = this.noteFormControl.value;
     // call api to update note
@@ -37,6 +43,9 @@ export class NoteComponent implements OnInit {
     this.edit = false;
   }
 
+  /**
+   * Delete current note
+   */
   onDeleteNoteClick(): void {
     this.noteService
       .deleteNote(this.note.id, this.taskId)
@@ -45,6 +54,10 @@ export class NoteComponent implements OnInit {
       });
   }
 
+  /**
+   * Output notes array to parent component
+   * @param notes notes array of type NoteModel[]
+   */
   outputNotes(notes): void {
     this.notes.emit(notes);
   }
