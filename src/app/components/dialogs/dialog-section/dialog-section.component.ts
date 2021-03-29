@@ -25,6 +25,9 @@ export class DialogSectionComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  /**
+   * Initialises newSectionForm using a formbuilder
+   */
   initialiseForm(): void {
     this.newSectionForm = this.formbuilder.group({
       heading: ['', Validators.required],
@@ -32,6 +35,10 @@ export class DialogSectionComponent implements OnInit {
     });
   }
 
+  /**
+   * Sends form data to dialog parent on dialog close
+   * @param formData form data of type SectionModel
+   */
   addSection(formData: SectionModel): void {
     this.dialogRef.close(formData);
   }

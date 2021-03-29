@@ -47,6 +47,11 @@ export class AuthenticationService {
     this.isLogout = new Subject<boolean>();
   }
 
+  /**
+   * Requests the JWT tokens from the api
+   * @param loginCredentials login credentials of type User from form data
+   * @returns Observable of type UserSession
+   */
   requestTokens(loginCredentials): Observable<UserSession> {
     return this.http.post<Tokens>(`${APIURL}/token/`, loginCredentials).pipe(
       map((tokens: Tokens) => {
@@ -62,6 +67,11 @@ export class AuthenticationService {
     );
   }
 
+  /**
+   * Requests user details from api
+   * @param userSession UserSession object
+   * @returns Observable of type UserSession with updated user details
+   */
   requestUser(userSession): Observable<UserSession> {
     return this.http.get(`${APIURL}/currentuser/`).pipe(
       map((user: User) => {
@@ -76,33 +86,56 @@ export class AuthenticationService {
     );
   }
 
+  /**
+   * Populates the UserSession model with tokens and user details
+   * @param loginCredentials login credentials of type User from form data
+   * @returns Observable of type UserSession
+   */
   login(loginCredentials): Observable<UserSession> {
     return this.requestTokens(loginCredentials).pipe(
       switchMap((userSession: UserSession) => this.requestUser(userSession))
     );
   }
 
+  /**
+   * Retrieves locally stored userSession object
+   * @returns JWT access token
+   */
   getAccessToken(): string {
     const userSession = JSON.parse(localStorage.getItem('userSession'));
     return userSession.access;
   }
 
+  /**
+   * Retrieves locally stored userSession object
+   * @returns JWT refresh token
+   */
   getRefreshToken(): string {
     const userSession = JSON.parse(localStorage.getItem('userSession'));
     return userSession.refresh;
   }
 
+  /**
+   * Assigns refreshObs to timer observable
+   */
   startInterval(): void {
     console.log('Interval started');
     this.refreshObs = timer(1000, 60000 * 4);
   }
 
+  /**
+   * Subscribes to refreshObs timer observable and runs token refresh function every interval
+   */
   startTokenRefresh(): void {
     this.refreshObs
       .pipe(takeUntil(this.isLogout))
       .subscribe((x) => this.refreshAccessToken());
   }
 
+  /**
+   * Uses refresh token to get new access token and updates local storage
+   * @returns Subscription
+   */
   refreshAccessToken(): Subscription {
     const tempUserSession: UserSession = this.currentUserSession.value;
     return this.http
@@ -121,6 +154,10 @@ export class AuthenticationService {
       .subscribe();
   }
 
+  /**
+   * Checks if user is authenticated by seeing if an access token is stored locally
+   * @returns boolean
+   */
   isAuthenticated(): boolean {
     console.log('currentUserSession', this.currentUserSession);
     if (JSON.parse(localStorage.getItem('userSession')).access) {
@@ -131,6 +168,9 @@ export class AuthenticationService {
     return false;
   }
 
+  /**
+   * logs the user out by routing to the login page and clearing local storage
+   */
   logout(): void {
     this.isLogout.next();
     this.router.navigate(['login']);

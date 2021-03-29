@@ -11,14 +11,29 @@ import { switchMap } from 'rxjs/operators';
 export class ProjectService {
   constructor(private http: HttpClient) {}
 
+  /**
+   * Adds new project to the database
+   * @param projectDetails ProjectModel object
+   * @returns Observable of type ProjectModel
+   */
   postProject(projectDetails: ProjectModel): Observable<ProjectModel> {
     return this.http.post<ProjectModel>(`${APIURL}/project/`, projectDetails);
   }
 
+  /**
+   * Returns an array of all the projects
+   * @returns Observable of type ProjectModel[]
+   */
   getProjects(): Observable<ProjectModel[]> {
     return this.http.get<ProjectModel[]>(`${APIURL}/project/`);
   }
 
+  /**
+   * Updates project details on the database for the specifed project and returns an array of all the projects
+   * @param id project id
+   * @param projectDetails ProjectModel object
+   * @returns Observable of type ProjectModel[]
+   */
   updateProject(
     id: number,
     projectDetails: ProjectModel
@@ -32,6 +47,11 @@ export class ProjectService {
       );
   }
 
+  /**
+   * Deletes specified project and returns an array of all the projects
+   * @param id project id
+   * @returns Observable of type ProjectModel[]
+   */
   deleteProject(id: number): Observable<ProjectModel[]> {
     return this.http.delete(`${APIURL}/project/${id}/`).pipe(
       switchMap(() => {
@@ -40,6 +60,11 @@ export class ProjectService {
     );
   }
 
+  /**
+   * Returns project of specified id
+   * @param id project id
+   * @returns Observable of type ProjectModel
+   */
   getProject(id: number): Observable<ProjectModel> {
     return this.http.get<ProjectModel>(`${APIURL}/project/${id}/`);
   }

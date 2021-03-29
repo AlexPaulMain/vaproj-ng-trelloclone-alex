@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="non-edit-display" *ngIf="!edit">
+    <div class="display-note" (click)="onNoteClick()">
+      <div>
+        {{ note.content }}
+      </div>
+    </div>
+    <div>
+      <button
+        type="button"
+        class="cancel-button"
+        mat-icon-button
+        (click)="onDeleteNoteClick()"
+      >
+        <mat-icon class="cancel-icon">clear</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="edit-display" *ngIf="edit">
+    <div>
+      <button type="button" mat-icon-button (click)="onSaveNoteClick()">
+        <mat-icon class="confirm-icon">done</mat-icon>
+      </button>
+    </div>
+    <div class="note-input">
+      <form>
+        <mat-form-field>
+          <mat-label>Note</mat-label>
+          <textarea
+            [formControl]="noteFormControl"
+            matInput
+            matTextareaAutosize
+          ></textarea>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</div>

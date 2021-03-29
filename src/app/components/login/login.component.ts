@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /**
+   * Sends login data to login function when the user clicks 'login'
+   * @param loginCredentials form data
+   */
   onSubmit(loginCredentials: any): void {
     console.log('you submitted value: ', loginCredentials);
     this.authenticationService

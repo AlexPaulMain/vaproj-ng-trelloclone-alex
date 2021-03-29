@@ -35,7 +35,7 @@
       <button
         type="button"
         mat-icon-button
-        (click)="onConfirmClick(editTaskForm.value)"
+        (click)="onConfirmClick()"
         [mat-dialog-close]="editTaskForm.value"
       >
         <mat-icon class="confirm-icon">done</mat-icon>
@@ -46,8 +46,21 @@
     </div>
   </form>
 </mat-dialog-content>
+
+<!--Notes-->
+<mat-dialog-content>
+  <div class="note-div">
+    <app-note
+      *ngFor="let note of notes"
+      [note]="note"
+      [taskId]="data.id"
+      (notes)="updateNotes($event)"
+    ></app-note>
+  </div>
+</mat-dialog-content>
+
 <mat-dialog-actions>
-  <div>
+  <div class="buttons">
     <button mat-raised-button (click)="onCancelButtonClick()">Cancel</button>
     <button
       class="delete"
@@ -56,6 +69,14 @@
       color="warn"
     >
       <mat-icon>delete_outline</mat-icon>
+    </button>
+    <button
+      class="add-icon"
+      mat-icon-button
+      *ngIf="!edit"
+      (click)="onAddNoteClick()"
+    >
+      <mat-icon [inline]="true">add_box</mat-icon>
     </button>
   </div>
 </mat-dialog-actions>

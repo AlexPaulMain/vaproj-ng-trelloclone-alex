@@ -39,6 +39,8 @@ import { SectionService } from './services/section.service';
 import { TaskComponent } from './components/task/task.component';
 import { DialogTaskComponent } from './components/dialogs/dialog-task/dialog-task.component';
 import { TaskService } from './services/task.service';
+import { NoteComponent } from './components/note/note.component';
+import { NoteService } from './services/note.service';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { TaskService } from './services/task.service';
     DialogSectionComponent,
     TaskComponent,
     DialogTaskComponent,
+    NoteComponent,
   ],
   entryComponents: [DialogDeleteComponent, DialogSectionComponent],
   imports: [
@@ -90,6 +93,7 @@ import { TaskService } from './services/task.service';
     ProjectService,
     SectionService,
     TaskService,
+    NoteService,
   ],
   bootstrap: [AppComponent],
 })

@@ -32,6 +32,7 @@ export class TaskComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogTaskComponent, {
       data: {
+        id: this.task.id,
         heading: this.task.heading,
         description: this.task.description,
         start_date: this.task.start_date,
@@ -52,6 +53,7 @@ export class TaskComponent implements OnInit {
           });
         console.log('DELETED TASK');
       } else if (formData !== undefined) {
+        // update task in database
         this.taskService
           .updateTask(this.task.id, formData, this.sectionId)
           .subscribe((tasks) => {

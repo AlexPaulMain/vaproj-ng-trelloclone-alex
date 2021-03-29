@@ -7,3 +7,19 @@
   color: #4caf50;
   font-size: 30px;
 }
+
+.add-icon {
+  color: #9e9e9e;
+  float: right;
+  font-size: 30px;
+}
+
+.buttons {
+  margin-bottom: 8px;
+  margin-left: 8px;
+  display: flex;
+}
+
+.note-div {
+  padding-bottom: 25px;
+}

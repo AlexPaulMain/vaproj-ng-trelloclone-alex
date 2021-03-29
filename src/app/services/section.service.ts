@@ -6,8 +6,6 @@ import { switchMap } from 'rxjs/operators';
 /* Models */
 import { APIURL } from '../models/api.model';
 import { SectionModel } from '../models/section.model';
-import { ProjectModel } from '../models/project.model';
-import { TaskModel } from '../models/task.model';
 
 @Injectable()
 export class SectionService {
@@ -15,16 +13,31 @@ export class SectionService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Merges two task objects and assigns them to the tasks object
+   * @param tasks Object which must match the TaskModel format
+   */
   storeTasks(tasks: Object): void {
     this.tasks = Object.assign(this.tasks, tasks);
   }
 
+  /**
+   * Returns an array of all the sections for the specified project
+   * @param projectId project id
+   * @returns Observable of type SectionModel[]
+   */
   getSections(projectId: number): Observable<SectionModel[]> {
     return this.http.get<SectionModel[]>(
       `${APIURL}/project/${projectId}/section/`
     );
   }
 
+  /**
+   * Adds a section to the database and returns an array of sections for the specified project
+   * @param projectId project id
+   * @param sectionData the section to be added of type SectionModel
+   * @returns Observable of type SectionModel[]
+   */
   addSection(
     projectId: number,
     sectionData: SectionModel
@@ -37,6 +50,13 @@ export class SectionService {
       .pipe(switchMap(() => this.getSections(projectId)));
   }
 
+  /**
+   * Changes section position
+   * @param sectionData sectionModel
+   * @param sectionId section id
+   * @param followsId id of section the current section must follow
+   * @returns Observable of type SectionModel
+   */
   moveSection(
     sectionData: SectionModel,
     sectionId: number,
@@ -48,6 +68,12 @@ export class SectionService {
     );
   }
 
+  /**
+   * Deletes specified section from database and returns and array of all the sections
+   * @param sectionId section id
+   * @param projectId project id
+   * @returns Observable of type SectionModel[]
+   */
   deleteSection(
     sectionId: number,
     projectId: number
@@ -59,6 +85,13 @@ export class SectionService {
     );
   }
 
+  /**
+   * Updates the specified section and returns an array of all the sections
+   * @param sectionId section id
+   * @param sectionData SectionModel
+   * @param projectId project id
+   * @returns Observable of type SectionModel[]
+   */
   updateSection(
     sectionId: number,
     sectionData: SectionModel,
