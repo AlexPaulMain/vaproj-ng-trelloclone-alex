@@ -1,57 +1,56 @@
 <div class="container">
-  <!-- Form -->
-  <form
-    [formGroup]="myForm"
-    (ngSubmit)="onSubmit(myForm.value)"
-    class="centre"
-    [class.error]="!myForm.valid && myForm.touched"
-  >
-    <h1 class="header">Trello Clone</h1>
-
-    <!-- Username input field -->
-    <div [class.error]="!username.valid && username.touched" class="form">
-      <!-- <label for="skuInput">Username: </label> -->
-      <input
-        type="text"
-        id="usernameInput"
-        placeholder="Username"
-        [formControl]="username"
-        class="input"
-      />
-    </div>
-
-    <div
-      class="error-message"
-      *ngIf="username.hasError('required') && myForm.touched"
+  <mat-card>
+    <!-- Form -->
+    <form
+      [formGroup]="myForm"
+      (ngSubmit)="onSubmit(myForm.value)"
+      class="centre"
+      [class.error]="!myForm.valid && myForm.touched"
     >
-      Username is required
-    </div>
+      <!--<h1 class="header">Trello Clone</h1>-->
+      <mat-card-title class="card-title">Trello Clone</mat-card-title>
 
-    <!-- Password input field -->
-    <div [class.error]="!password.valid && password.touched" class="form">
-      <!-- <label for="skuInput">Password: </label> -->
-      <input
-        type="password"
-        id="passwordInput"
-        placeholder="Password"
-        [formControl]="password"
-        class="input"
-      />
-    </div>
+      <!-- Username input field -->
+      <div [class.error]="!username.valid && username.touched" class="form">
+        <!-- <label for="skuInput">Username: </label> -->
+        <input
+          type="text"
+          id="usernameInput"
+          placeholder="Username"
+          [formControl]="username"
+          class="input"
+        />
+      </div>
 
-    <!-- Display messages -->
-    <!-- <div *ngIf="!username.valid && myForm.touched">Username is invalid</div> -->
-    <!-- <div *ngIf="!password.valid && myForm.touched">Password is invalid</div> -->
-    <div
-      class="error-message"
-      *ngIf="password.hasError('required') && myForm.touched"
-    >
-      Password is required
-    </div>
-    <!-- <div *ngIf="!myForm.valid && myForm.touched">Form is invalid</div> -->
+      <div
+        class="error-message"
+        *ngIf="username.hasError('required') && myForm.touched"
+      >
+        Username is required
+      </div>
 
-    <div class="form">
-      <button class="button" type="submit">Login</button>
-    </div>
-  </form>
+      <!-- Password input field -->
+      <div [class.error]="!password.valid && password.touched" class="form">
+        <!-- <label for="skuInput">Password: </label> -->
+        <input
+          type="password"
+          id="passwordInput"
+          placeholder="Password"
+          [formControl]="password"
+          class="input"
+        />
+      </div>
+
+      <!-- Display messages -->
+      <div
+        class="error-message"
+        *ngIf="password.hasError('required') && myForm.touched"
+      >
+        Password is required
+      </div>
+      <div class="form">
+        <button class="button" type="submit">Login</button>
+      </div>
+    </form>
+  </mat-card>
 </div>

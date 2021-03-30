@@ -29,7 +29,8 @@ export class ProjectService {
   }
 
   /**
-   * Updates project details on the database for the specifed project and returns an array of all the projects
+   * Updates project details on the database for the specifed project and
+   * returns an array of all the projects
    * @param id project id
    * @param projectDetails ProjectModel object
    * @returns Observable of type ProjectModel[]

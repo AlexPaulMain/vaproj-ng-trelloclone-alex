@@ -29,7 +29,8 @@ export class NoteComponent implements OnInit {
   }
 
   /**
-   * Update the note data both locally and on the database and set edit variable to false
+   * Update the note data both locally and on the database and set edit
+   * variable to false
    */
   onSaveNoteClick(): void {
     this.note.content = this.noteFormControl.value;

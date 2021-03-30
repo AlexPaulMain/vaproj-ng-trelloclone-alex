@@ -118,7 +118,8 @@ export class SectionComponent implements OnInit {
   }
 
   /**
-   * Set addTask variable to false and reset addTaskForm user field to the current userId
+   * Set addTask variable to false and reset addTaskForm user field to the
+   * current userId
    */
   onCancelTaskClick(): void {
     this.addTask = false;

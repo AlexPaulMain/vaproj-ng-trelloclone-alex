@@ -74,6 +74,8 @@
       class="add-icon"
       mat-icon-button
       *ngIf="!edit"
+      matTooltip="Add Note"
+      matTooltipShowDelay="200"
       (click)="onAddNoteClick()"
     >
       <mat-icon [inline]="true">add_box</mat-icon>

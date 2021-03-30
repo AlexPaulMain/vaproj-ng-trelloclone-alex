@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackgroundService } from 'src/app/services/background.service';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
@@ -7,18 +8,27 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  constructor(private authenticationService: AuthenticationService) {}
-
   newProject = false;
   displayProjectList = true;
+  backgroundClass: string;
+
+  constructor(
+    private authenticationService: AuthenticationService,
+    private backgroundService: BackgroundService
+  ) {}
 
   ngOnInit(): void {
     this.authenticationService.startInterval();
     this.authenticationService.startTokenRefresh();
+    this.backgroundService.getBackground().subscribe((value) => {
+      this.backgroundClass = value;
+      console.log(value);
+    });
   }
 
   /**
-   * Sets html display booleans to appropriate values output from project list child component
+   * Sets html display booleans to appropriate values output from project
+   * list child component
    * @param value boolean
    */
   updateDisplay(value): void {

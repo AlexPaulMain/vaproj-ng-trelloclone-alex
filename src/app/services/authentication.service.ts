@@ -124,7 +124,8 @@ export class AuthenticationService {
   }
 
   /**
-   * Subscribes to refreshObs timer observable and runs token refresh function every interval
+   * Subscribes to refreshObs timer observable and runs token refresh
+   * function every interval
    */
   startTokenRefresh(): void {
     this.refreshObs
@@ -155,7 +156,8 @@ export class AuthenticationService {
   }
 
   /**
-   * Checks if user is authenticated by seeing if an access token is stored locally
+   * Checks if user is authenticated by seeing if an access token is
+   * stored locally
    * @returns boolean
    */
   isAuthenticated(): boolean {

@@ -1,6 +1,11 @@
 <div class="card">
   <div class="non-edit-display" *ngIf="!edit">
-    <div class="display-note" (click)="onNoteClick()">
+    <div
+      class="display-note"
+      (click)="onNoteClick()"
+      matTooltip="Click to Edit"
+      matTooltipShowDelay="500"
+    >
       <div>
         {{ note.content }}
       </div>
@@ -9,6 +14,8 @@
       <button
         type="button"
         class="cancel-button"
+        matTooltip="Delete Note"
+        matTooltipShowDelay="1000"
         mat-icon-button
         (click)="onDeleteNoteClick()"
       >

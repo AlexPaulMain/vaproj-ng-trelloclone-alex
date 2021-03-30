@@ -147,6 +147,8 @@
           class="add-icon"
           mat-icon-button
           *ngIf="!edit"
+          matTooltip="Add Task"
+          matTooltipShowDelay="500"
           (click)="onAddTaskClick()"
         >
           <mat-icon [inline]="true">add_box</mat-icon>

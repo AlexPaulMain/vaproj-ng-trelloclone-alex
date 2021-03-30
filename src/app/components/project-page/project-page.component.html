@@ -1,26 +1,32 @@
-<app-nav-bar></app-nav-bar>
-<div *ngIf="loadProject" class="project">
-  <h1>{{ project.project_name }}</h1>
-  <button mat-raised-button (click)="openDialog()">Add section</button>
-  <div></div>
-  <div
-    class="list"
-    cdkDropList
-    cdkDropListOrientation="horizontal"
-    (cdkDropListDropped)="reorderSections($event)"
-  >
-    <div class="box" cdkDropListGroup>
-      <app-section
-        cdkDrag
-        *ngFor="let section of sections"
-        [section]="section"
-        [projectId]="project.id"
-        (sectionsOutput)="updateSections($event)"
-      >
-        <div class="dragHandle">
-          <mat-icon class="dragIcon" cdkDragHandle>drag_indicator</mat-icon>
-        </div>
-      </app-section>
+<div [ngClass]="['background-specs', backgroundClass]">
+  <app-nav-bar></app-nav-bar>
+  <div *ngIf="loadProject" class="project">
+    <div class="title">
+      <mat-card>
+        <mat-card-title>{{ project.project_name }}</mat-card-title>
+      </mat-card>
+    </div>
+    <button mat-raised-button (click)="openDialog()">Add section</button>
+    <div></div>
+    <div
+      class="list"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="reorderSections($event)"
+    >
+      <div class="box" cdkDropListGroup>
+        <app-section
+          cdkDrag
+          *ngFor="let section of sections"
+          [section]="section"
+          [projectId]="project.id"
+          (sectionsOutput)="updateSections($event)"
+        >
+          <div class="dragHandle">
+            <mat-icon class="dragIcon" cdkDragHandle>drag_indicator</mat-icon>
+          </div>
+        </app-section>
+      </div>
     </div>
   </div>
 </div>

@@ -34,6 +34,7 @@ export class TaskComponent implements OnInit {
         user: this.task.user,
       },
       width: '400px',
+      autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((formData) => {
       // update api

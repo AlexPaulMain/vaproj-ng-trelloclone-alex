@@ -1,0 +1,14 @@
+.align-radio {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-button {
+  margin-bottom: 10px;
+}
+
+.spacer {
+  width: 8px;
+  height: auto;
+  display: inline-block;
+}

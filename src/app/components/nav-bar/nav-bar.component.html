@@ -12,7 +12,24 @@
   <span class="spacer"></span>
   <button
     mat-icon-button
-    matTooltip="logout"
+    (click)="onSettingsClick()"
+    matToolTip="Settings"
+    matTooltipShowDelay="500"
+  >
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button
+    mat-flat-button
+    color="primary"
+    matTooltip="User Settings"
+    matTooltipShowDelay="800"
+    (click)="onUserClick()"
+  >
+    {{ userName }}
+  </button>
+  <button
+    mat-icon-button
+    matTooltip="Logout"
     matTooltipShowDelay="500"
     (click)="callLogout()"
   >

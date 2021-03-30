@@ -1,0 +1,18 @@
+<mat-card-title>Background</mat-card-title>
+<mat-radio-group class="align-radio" [(ngModel)]="backgroundTheme">
+  <mat-radio-button #default class="radio-button" value="default"
+    >Default</mat-radio-button
+  >
+  <mat-radio-button #beach class="radio-button" value="beach"
+    >Beach</mat-radio-button
+  >
+  <mat-radio-button #splash class="radio-button" value="splash"
+    >Splash</mat-radio-button
+  >
+  <mat-radio-button #clouds class="radio-button" value="clouds"
+    >Clouds</mat-radio-button
+  >
+</mat-radio-group>
+<button mat-raised-button (click)="onCancelClick()">Cancel</button>
+<div class="spacer"></div>
+<button mat-raised-button (click)="onSaveClick()">Save</button>

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService
       .login(loginCredentials)
       .subscribe((userSession) => {
-        if (userSession) {
+        if (userSession.username) {
           console.log('Logged in successfully'),
             this.snackBar.open('Login Successful', 'Close', { duration: 3000 }),
             this.router.navigate(['/main']);

@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -41,6 +42,10 @@ import { DialogTaskComponent } from './components/dialogs/dialog-task/dialog-tas
 import { TaskService } from './services/task.service';
 import { NoteComponent } from './components/note/note.component';
 import { NoteService } from './services/note.service';
+import { DialogSettingsComponent } from './components/dialogs/dialog-settings/dialog-settings.component';
+import { BackgroundService } from './services/background.service';
+import { DialogUserComponent } from './components/dialogs/dialog-user/dialog-user.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +64,8 @@ import { NoteService } from './services/note.service';
     TaskComponent,
     DialogTaskComponent,
     NoteComponent,
+    DialogSettingsComponent,
+    DialogUserComponent,
   ],
   entryComponents: [DialogDeleteComponent, DialogSectionComponent],
   imports: [
@@ -81,6 +88,7 @@ import { NoteService } from './services/note.service';
     MatToolbarModule,
     MatIconModule,
     MatTooltipModule,
+    MatRadioModule,
   ],
   providers: [
     AuthenticationService,
@@ -94,6 +102,8 @@ import { NoteService } from './services/note.service';
     SectionService,
     TaskService,
     NoteService,
+    BackgroundService,
+    UserService,
   ],
   bootstrap: [AppComponent],
 })

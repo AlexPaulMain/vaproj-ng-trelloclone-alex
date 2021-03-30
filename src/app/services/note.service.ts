@@ -12,7 +12,8 @@ export class NoteService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Adds a note to the database and returns an array of all the notes for the specified task
+   * Adds a note to the database and returns an array of all the notes
+   * for the specified task
    * @param taskId task id
    * @param note note model
    * @returns Observable of type NoteModel[]
@@ -35,7 +36,8 @@ export class NoteService {
   }
 
   /**
-   * Removes note with matching id and returns an array of all the notes for the specified task
+   * Removes note with matching id and returns an array of all the notes
+   * for the specified task
    * @param id note id
    * @param taskId task id
    * @returns Observable of type NoteModel[]
@@ -49,7 +51,8 @@ export class NoteService {
   }
 
   /**
-   * Updates note with matching id and returns an array of all the notes for the specified task
+   * Updates note with matching id and returns an array of all the notes
+   * for the specified task
    * @param id note id
    * @param note note object of type NoteModel
    * @param taskId task id

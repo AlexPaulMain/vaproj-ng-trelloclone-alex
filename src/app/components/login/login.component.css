@@ -4,7 +4,12 @@
 
 .header {
   margin: 10px 0;
-  color: rgb(180, 180, 180);
+  color: #3f51b5;
+}
+
+.card-title {
+  color: #3f51b5;
+  font-size: 30px;
 }
 
 .input {
@@ -17,7 +22,8 @@
 }
 
 .input:hover {
-  box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);
+  /*box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);*/
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .input:focus {
@@ -29,26 +35,26 @@
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  background-color: rgb(180, 180, 180);
+  background-color: #7e92ff;
   border: 0;
   transition: 0.3s;
 }
 
 .button:hover {
-  background-color: rgb(112, 112, 112);
+  background-color: #283593;
   color: rgb(255, 255, 255);
   /*box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);*/
 }
 
 .button:focus {
   outline: none;
-  background-color: rgb(112, 112, 112);
+  background-color: #283593;
   color: rgb(255, 255, 255);
   /*box-shadow: 2px 2px 15px 4px rgb(180, 180, 180);*/
 }
 
 .error {
-  color: red;
+  color: #f44336;
 }
 
 .error-message {

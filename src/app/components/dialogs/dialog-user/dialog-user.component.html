@@ -1,0 +1,18 @@
+<mat-card-title>User Settings</mat-card-title>
+<form class="form" [formGroup]="editUserForm">
+  <mat-form-field>
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="first_name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="last_name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+</form>
+<button mat-raised-button (click)="onCancelClick()">Cancel</button>
+<div class="spacer"></div>
+<button mat-raised-button (click)="onSaveClick()">Save</button>

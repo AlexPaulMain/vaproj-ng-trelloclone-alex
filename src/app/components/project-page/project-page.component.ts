@@ -8,6 +8,7 @@ import { DialogSectionComponent } from '../dialogs/dialog-section/dialog-section
 import { SectionService } from 'src/app/services/section.service';
 import { SectionModel } from 'src/app/models/section.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { BackgroundService } from 'src/app/services/background.service';
 
 @Component({
   selector: 'app-project-page',
@@ -19,13 +20,15 @@ export class ProjectPageComponent implements OnInit {
   loadProject = false;
   project: ProjectModel;
   sections: SectionModel[];
+  backgroundClass: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private projectService: ProjectService,
     private sectionService: SectionService,
     private authenticationService: AuthenticationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private backgroundService: BackgroundService
   ) {
     activatedRoute.params.subscribe((params) => {
       this.id = params.id;
@@ -42,6 +45,9 @@ export class ProjectPageComponent implements OnInit {
         this.sections = sections;
         console.log(sections);
       });
+    this.backgroundService.getBackground().subscribe((value) => {
+      this.backgroundClass = value;
+    });
   }
 
   /**
@@ -56,13 +62,25 @@ export class ProjectPageComponent implements OnInit {
   }
 
   /**
-   * Opens section dialog and adds section to database if section data is provided and submitted
+   * Opens section dialog and adds section to database if section data is
+   * provided and submitted
    */
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogSectionComponent);
     dialogRef.afterClosed().subscribe((formData) => {
       if (formData !== 'false' && formData !== undefined) {
         console.log('Data from dialog', formData);
+
+        // determine section position in list
+        let sectionPos: number;
+        if (this.sections.length === 0) {
+          sectionPos = 0;
+        } else {
+          sectionPos =
+            this.sections[this.sections.length - 1].section_order + 1;
+        }
+        formData = { ...formData, ...{ section_order: sectionPos } };
+
         // add section formData to the api
         this.sectionService
           .addSection(this.id, formData)

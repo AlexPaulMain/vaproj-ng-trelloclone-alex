@@ -12,7 +12,8 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Adds task to database and returns an array of all the tasks for te specified section
+   * Adds task to database and returns an array of all the tasks for the
+   * specified section
    * @param task task object of type TaskModel
    * @param sectionId section id
    * @returns Observable of type TaskModel[]
@@ -35,7 +36,8 @@ export class TaskService {
   }
 
   /**
-   * Updates the specifed task and returns an array of all the tasks for the specified section
+   * Updates the specifed task and returns an array of all the tasks for
+   * the specified section
    * @param id task id
    * @param task task object of type TaskModel
    * @param sectionId section id
@@ -54,7 +56,8 @@ export class TaskService {
   }
 
   /**
-   * Deletes specifed task from database and returns an array of all the tasks for the specifed section
+   * Deletes specifed task from database and returns an array of all the
+   * tasks for the specifed section
    * @param id task id
    * @param sectionId section id
    * @returns Observable of type TaskModel[]

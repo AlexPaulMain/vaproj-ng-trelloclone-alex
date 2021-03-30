@@ -50,14 +50,16 @@ export class DialogTaskComponent implements OnInit {
   }
 
   /**
-   * Sets edit variable to true if the user clicks on the task display information
+   * Sets edit variable to true if the user clicks on the task display
+   * information
    */
   onTaskInfoClick(): void {
     this.edit = true;
   }
 
   /**
-   * Reset task form with data from the task component and change the edit variable to false
+   * Reset task form with data from the task component and change the edit
+   * variable to false
    */
   onConfirmClick(): void {
     this.editTaskForm.reset(this.data);
@@ -65,7 +67,8 @@ export class DialogTaskComponent implements OnInit {
   }
 
   /**
-   * Reset form to original data and set edit to false when the user clicks on the clear icon
+   * Reset form to original data and set edit to false when the user
+   * clicks on the clear icon
    */
   onCancelClick(): void {
     this.editTaskForm.reset(this.data);
@@ -121,7 +124,18 @@ export class DialogTaskComponent implements OnInit {
    * Adds empty note to database and updates notes array
    */
   onAddNoteClick(): void {
-    const emptyNote: NoteModel = { content: 'New Note', user: this.data.user };
+    // determine task position in list
+    let notePos: number;
+    if (this.notes.length === 0) {
+      notePos = 0;
+    } else {
+      notePos = this.notes[this.notes.length - 1].note_order + 1;
+    }
+    const emptyNote: NoteModel = {
+      content: 'New Note',
+      user: this.data.user,
+      note_order: notePos,
+    };
     this.noteService.addNote(this.data.id, emptyNote).subscribe((notes) => {
       console.log(notes);
       this.notes = notes;

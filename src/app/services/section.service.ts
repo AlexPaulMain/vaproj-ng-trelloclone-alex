@@ -33,7 +33,8 @@ export class SectionService {
   }
 
   /**
-   * Adds a section to the database and returns an array of sections for the specified project
+   * Adds a section to the database and returns an array of sections for
+   * the specified project
    * @param projectId project id
    * @param sectionData the section to be added of type SectionModel
    * @returns Observable of type SectionModel[]
@@ -69,7 +70,8 @@ export class SectionService {
   }
 
   /**
-   * Deletes specified section from database and returns and array of all the sections
+   * Deletes specified section from database and returns and array of all
+   * the sections
    * @param sectionId section id
    * @param projectId project id
    * @returns Observable of type SectionModel[]
