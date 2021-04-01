@@ -46,6 +46,7 @@ import { DialogSettingsComponent } from './components/dialogs/dialog-settings/di
 import { BackgroundService } from './services/background.service';
 import { DialogUserComponent } from './components/dialogs/dialog-user/dialog-user.component';
 import { UserService } from './services/user.service';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { UserService } from './services/user.service';
     NoteService,
     BackgroundService,
     UserService,
+    AlertService,
   ],
   bootstrap: [AppComponent],
 })

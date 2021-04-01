@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { AlertService } from 'src/app/services/alert.service';
 import { ProjectService } from '../../services/project.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class NewProjectComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,8 @@ export class NewProjectComponent implements OnInit {
     this.projectService.postProject(newProjectDetails).subscribe((data) => {
       console.log(data);
       this.outputCancelNewProject();
+      // alert
+      this.alertService.addAlert('success', 'New Project Created!');
     });
   }
 

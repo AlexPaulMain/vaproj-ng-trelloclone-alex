@@ -32,3 +32,11 @@ body {
 .background-3 {
   background-image: url("./app/assets/clouds.jpg");
 }
+
+.red-snackbar {
+  background: #f44336;
+}
+
+.green-snackbar {
+  background: #4caf50;
+}

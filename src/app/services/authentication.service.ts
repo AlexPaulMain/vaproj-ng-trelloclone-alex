@@ -119,6 +119,9 @@ export class AuthenticationService {
    * Assigns refreshObs to timer observable
    */
   startInterval(): void {
+    /*const expiry = JSON.parse(atob(this.getAccessToken().split('.')[1])).exp;
+    const tokenAliveTime = expiry - Math.floor(new Date().getTime() / 1000);*/
+
     console.log('Interval started');
     this.refreshObs = timer(1000, 60000 * 4);
   }
