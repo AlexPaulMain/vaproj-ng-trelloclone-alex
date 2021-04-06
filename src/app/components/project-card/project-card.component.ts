@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialogs/dialog-delete/dialog-delete.component';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-project-card',
@@ -21,7 +22,8 @@ export class ProjectCardComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private projectService: ProjectService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class ProjectCardComponent implements OnInit {
       .subscribe((projects: ProjectModel[]) => {
         console.log(projects);
         this.outputProjects(projects);
+        this.alertService.addAlert('success', 'Project Saved');
       });
     this.edit = false;
   }
@@ -78,6 +81,7 @@ export class ProjectCardComponent implements OnInit {
           .deleteProject(this.project.id)
           .subscribe((projects) => {
             this.outputProjects(projects);
+            this.alertService.addAlert('delete', 'Project Deleted');
           });
       }
     });

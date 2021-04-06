@@ -11,6 +11,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-section',
@@ -32,7 +33,8 @@ export class SectionComponent implements OnInit {
     private dialog: MatDialog,
     private sectionService: SectionService,
     private formBuilder: FormBuilder,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -83,6 +85,7 @@ export class SectionComponent implements OnInit {
       .updateSection(this.section.id, formData, this.projectId)
       .subscribe((sections) => {
         this.outputSections(sections);
+        this.alertService.addAlert('success', 'Section Updated');
       });
     this.edit = false;
   }
@@ -105,6 +108,7 @@ export class SectionComponent implements OnInit {
             console.log(sections);
             // output sections to parent
             this.outputSections(sections);
+            this.alertService.addAlert('delete', 'Section Deleted');
           });
       }
     });
@@ -146,6 +150,7 @@ export class SectionComponent implements OnInit {
       .subscribe((tasks: TaskModel[]) => {
         this.tasks = tasks;
         this.sectionService.storeTasks({ [this.section.id]: tasks });
+        this.alertService.addAlert('success', 'Task Added');
       });
     this.addTask = false;
     this.addTaskForm.reset({ user: this.userId });

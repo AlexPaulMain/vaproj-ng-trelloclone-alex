@@ -6,6 +6,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { NoteModel } from 'src/app/models/note.model';
+import { AlertService } from 'src/app/services/alert.service';
 import { NoteService } from 'src/app/services/note.service';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
@@ -24,7 +25,8 @@ export class DialogTaskComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private noteService: NoteService
+    private noteService: NoteService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {

@@ -9,6 +9,7 @@ import { SectionService } from 'src/app/services/section.service';
 import { SectionModel } from 'src/app/models/section.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { BackgroundService } from 'src/app/services/background.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-project-page',
@@ -28,7 +29,8 @@ export class ProjectPageComponent implements OnInit {
     private sectionService: SectionService,
     private authenticationService: AuthenticationService,
     private dialog: MatDialog,
-    private backgroundService: BackgroundService
+    private backgroundService: BackgroundService,
+    private alertService: AlertService
   ) {
     activatedRoute.params.subscribe((params) => {
       this.id = params.id;
@@ -87,6 +89,7 @@ export class ProjectPageComponent implements OnInit {
           .subscribe((sections: SectionModel[]) => {
             console.log('Added new section', sections);
             this.sections = sections;
+            this.alertService.addAlert('success', 'Added Section');
           });
       }
     });

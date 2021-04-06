@@ -47,7 +47,7 @@ export class AlertService {
       case 'success':
         return 'green-snackbar';
       case 'warn':
-        return '';
+        return 'orange-snackbar';
     }
   }
 }

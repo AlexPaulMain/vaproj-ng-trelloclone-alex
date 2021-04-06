@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskModel } from 'src/app/models/task.model';
+import { AlertService } from 'src/app/services/alert.service';
 import { TaskService } from 'src/app/services/task.service';
 import { DialogTaskComponent } from '../dialogs/dialog-task/dialog-task.component';
 
@@ -14,7 +15,11 @@ export class TaskComponent implements OnInit {
   @Input() sectionId: number;
   @Output() tasksOutput = new EventEmitter<TaskModel[]>();
 
-  constructor(private dialog: MatDialog, private taskService: TaskService) {}
+  constructor(
+    private dialog: MatDialog,
+    private taskService: TaskService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -45,6 +50,7 @@ export class TaskComponent implements OnInit {
           .subscribe((tasks) => {
             this.outputTasks(tasks);
             console.log(tasks);
+            this.alertService.addAlert('delete', 'Task Deleted');
           });
         console.log('DELETED TASK');
       } else if (formData !== undefined) {
@@ -54,6 +60,7 @@ export class TaskComponent implements OnInit {
           .subscribe((tasks) => {
             this.outputTasks(tasks);
             console.log(tasks);
+            this.alertService.addAlert('success', 'Task Updated');
           });
       }
     });

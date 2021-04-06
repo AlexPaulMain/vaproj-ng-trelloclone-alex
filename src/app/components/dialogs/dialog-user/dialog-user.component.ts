@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserSession } from 'src/app/models/user-session.model';
 import { UserService } from 'src/app/services/user.service';
+import { AlertService } from 'src/app/services/alert.service';
 @Component({
   selector: 'app-dialog-user',
   templateUrl: './dialog-user.component.html',
@@ -15,7 +16,8 @@ export class DialogUserComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<DialogUserComponent>,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,7 @@ export class DialogUserComponent implements OnInit {
         console.log(user);
         this.userSession = { ...this.userSession, ...user };
         localStorage.setItem('userSession', JSON.stringify(this.userSession));
+        this.alertService.addAlert('success', 'Updated User Details');
       });
     this.dialogRef.close();
   }
