@@ -45,7 +45,7 @@ export class ProjectPageComponent implements OnInit {
       .getSections(this.id)
       .subscribe((sections: SectionModel[]) => {
         this.sections = sections;
-        console.log(sections);
+        console.log('Sections fetched from api:', sections);
       });
     this.backgroundService.getBackground().subscribe((value) => {
       this.backgroundClass = value;
@@ -71,7 +71,7 @@ export class ProjectPageComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogSectionComponent);
     dialogRef.afterClosed().subscribe((formData) => {
       if (formData !== 'false' && formData !== undefined) {
-        console.log('Data from dialog', formData);
+        console.log('Data from section dialog:', formData);
 
         // determine section position in list
         let sectionPos: number;
@@ -87,7 +87,7 @@ export class ProjectPageComponent implements OnInit {
         this.sectionService
           .addSection(this.id, formData)
           .subscribe((sections: SectionModel[]) => {
-            console.log('Added new section', sections);
+            console.log('Updated sections from api', sections);
             this.sections = sections;
             this.alertService.addAlert('success', 'Added Section');
           });
@@ -104,7 +104,6 @@ export class ProjectPageComponent implements OnInit {
     const sectionsCopy: SectionModel[] = [...this.sections];
 
     // move items in main sections array
-    console.log(this.sections, event.previousIndex, event.currentIndex);
     moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
 
     let followId: number;
@@ -112,7 +111,6 @@ export class ProjectPageComponent implements OnInit {
       followId = sectionsCopy[event.currentIndex].id;
     } else {
       if (event.currentIndex === 0) {
-        console.log('should stay at 0');
         followId = 0;
       } else {
         followId = sectionsCopy[event.currentIndex - 1].id;
@@ -126,9 +124,7 @@ export class ProjectPageComponent implements OnInit {
         sectionsCopy[event.previousIndex].id,
         followId
       )
-      .subscribe((data) => {
-        console.log(data);
-      });
+      .subscribe();
   }
 
   /**

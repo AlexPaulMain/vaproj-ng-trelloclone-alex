@@ -17,7 +17,6 @@ export class AuthGuardService implements CanActivate {
       console.log('Automatic logout');
       return false;
     }
-    console.log('This route is allowed');
     return true;
   }
 }

@@ -29,7 +29,13 @@ export class DialogUserComponent implements OnInit {
       username: [this.userSession.username],
       first_name: [this.userSession.first_name, Validators.required],
       last_name: [this.userSession.last_name, Validators.required],
-      email: [this.userSession.email, Validators.required],
+      email: [
+        this.userSession.email,
+        [
+          Validators.required,
+          Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$'),
+        ],
+      ],
       projects: [this.userSession.projects],
     });
   }
@@ -42,7 +48,7 @@ export class DialogUserComponent implements OnInit {
     this.userService
       .updateUser(this.userSession.id, this.editUserForm.value)
       .subscribe((user) => {
-        console.log(user);
+        console.log('Updated user from api', user);
         this.userSession = { ...this.userSession, ...user };
         localStorage.setItem('userSession', JSON.stringify(this.userSession));
         this.alertService.addAlert('success', 'Updated User Details');

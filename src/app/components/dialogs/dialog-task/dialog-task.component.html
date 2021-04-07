@@ -14,22 +14,33 @@
     <mat-form-field>
       <mat-label>Heading</mat-label>
       <input matInput formControlName="heading" />
+      <mat-error *ngIf="editTaskForm.controls.description.invalid"
+        >Required</mat-error
+      >
     </mat-form-field>
     <mat-form-field>
       <mat-label>Description</mat-label>
       <input matInput formControlName="description" />
+      <mat-error *ngIf="editTaskForm.controls.description.invalid"
+        >Required</mat-error
+      >
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="start_date" />
+    <mat-form-field class="form-item">
+      <mat-label>Enter a start and target date</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          formControlName="start_date"
+          placeholder="Start date"
+        />
+        <input
+          matEndDate
+          formControlName="target_date"
+          placeholder="Target date"
+        />
+      </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Target Date</mat-label>
-      <input matInput [matDatepicker]="picker2" formControlName="target_date" />
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2></mat-datepicker>
+      <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
     <div>
       <button

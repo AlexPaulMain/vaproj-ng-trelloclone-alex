@@ -98,14 +98,12 @@ export class SectionComponent implements OnInit {
       data: { deleteType: 'Section', projectName: this.section.heading },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if (result === 'true') {
-        console.log('SECTION DELETED');
         // call api section delete
         this.sectionService
           .deleteSection(this.section.id, this.projectId)
           .subscribe((sections) => {
-            console.log(sections);
+            console.log('Updated sections from api:', sections);
             // output sections to parent
             this.outputSections(sections);
             this.alertService.addAlert('delete', 'Section Deleted');
@@ -143,7 +141,6 @@ export class SectionComponent implements OnInit {
       taskPos = this.tasks[this.tasks.length - 1].task_order + 1;
     }
     formData = { ...formData, ...{ task_order: taskPos } };
-    console.log('Formdata plus position', formData);
     // add new task to api
     this.taskService
       .addTask(formData, this.section.id)
@@ -177,9 +174,6 @@ export class SectionComponent implements OnInit {
    * @param event CdkDragDrop of type TaskModel[]
    */
   reorderTasks(event: CdkDragDrop<TaskModel[]>): void {
-    console.log(event.previousContainer.id);
-    console.log(event.previousIndex, event.currentIndex);
-
     const tasksCopy: TaskModel[] = [...this.tasks];
     const prevContainerTasksCopy = [
       ...this.sectionService.tasks[event.previousContainer.id],
@@ -198,7 +192,6 @@ export class SectionComponent implements OnInit {
         followsId = tasksCopy[event.currentIndex].id;
       } else {
         if (event.currentIndex === 0) {
-          console.log('should stay at 0');
           followsId = 0;
         } else {
           followsId = tasksCopy[event.currentIndex - 1].id;
@@ -206,7 +199,6 @@ export class SectionComponent implements OnInit {
       }
     } else {
       console.log('different container');
-      console.log(this.sectionService.tasks);
       transferArrayItem(
         this.sectionService.tasks[event.previousContainer.id],
         this.tasks,
@@ -217,14 +209,12 @@ export class SectionComponent implements OnInit {
       /* if statement to determine which task the moved task should follow
       (different list movement) */
       if (event.currentIndex === 0) {
-        console.log('should stay at 0');
         followsId = 0;
       } else {
         followsId = tasksCopy[event.currentIndex - 1].id;
       }
     }
 
-    console.log(prevContainerTasksCopy);
     // makes api call to update task positions
     this.taskService
       .moveTask(
@@ -234,7 +224,7 @@ export class SectionComponent implements OnInit {
         prevContainerTasksCopy[event.previousIndex]
       )
       .subscribe((task) => {
-        console.log(task);
+        console.log('Updated task from api:', task);
       });
   }
 }

@@ -15,36 +15,47 @@
         <mat-form-field class="form-item">
           <mat-label>Project Name</mat-label>
           <input formControlName="project_name" matInput />
+          <mat-error *ngIf="editProjectForm.controls.project_name.invalid"
+            >Required</mat-error
+          >
         </mat-form-field>
         <mat-form-field class="form-item">
           <mat-label>Project Description</mat-label>
           <textarea formControlName="description" matInput></textarea>
+          <mat-error *ngIf="editProjectForm.controls.description.invalid"
+            >Required</mat-error
+          >
         </mat-form-field>
         <mat-form-field class="form-item">
-          <mat-label>Start Date</mat-label>
-          <input
-            formControlName="start_date"
-            matInput
-            [matDatepicker]="picker"
-          />
+          <mat-label>Enter a start and target date</mat-label>
+          <mat-error
+            *ngIf="editProjectForm.controls.start_date.errors?.required"
+            >Required</mat-error
+          >
+          <mat-error
+            *ngIf="
+              editProjectForm.controls.start_date.value &&
+              editProjectForm.controls.target_date.errors?.required
+            "
+            >Enter second date</mat-error
+          >
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              formControlName="start_date"
+              placeholder="Start date"
+            />
+            <input
+              matEndDate
+              formControlName="target_date"
+              placeholder="Target date"
+            />
+          </mat-date-range-input>
           <mat-datepicker-toggle
             matSuffix
             [for]="picker"
           ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="form-item">
-          <mat-label>Target Date</mat-label>
-          <input
-            formControlName="target_date"
-            matInput
-            [matDatepicker]="picker2"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker2"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
+          <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
       </form>
     </div>

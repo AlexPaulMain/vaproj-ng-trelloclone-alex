@@ -92,9 +92,7 @@ export class DialogTaskComponent implements OnInit {
       data: { deleteType: 'Task', projectName: this.data.heading },
     });
     dialogRefDelete.afterClosed().subscribe((result) => {
-      console.log(result);
       if (result === 'true') {
-        console.log('SECTION DELETED');
         this.dialogRef.close('delete');
       }
     });
@@ -139,7 +137,7 @@ export class DialogTaskComponent implements OnInit {
       note_order: notePos,
     };
     this.noteService.addNote(this.data.id, emptyNote).subscribe((notes) => {
-      console.log(notes);
+      console.log('Updated notes from api: ', notes);
       this.notes = notes;
     });
   }

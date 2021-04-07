@@ -44,9 +44,8 @@ export class NewProjectComponent implements OnInit {
    * @param newProjectDetails form data
    */
   onSubmit(newProjectDetails): void {
-    console.log('New project details', newProjectDetails);
     this.projectService.postProject(newProjectDetails).subscribe((data) => {
-      console.log(data);
+      console.log('Updated projects from api:', data);
       this.outputCancelNewProject();
       // alert
       this.alertService.addAlert('success', 'New Project Created!');
@@ -59,4 +58,19 @@ export class NewProjectComponent implements OnInit {
   outputCancelNewProject(): void {
     this.cancelNewProject.emit(false);
   }
+
+  dateFilter = (): boolean => {
+    console.log('run filter');
+    console.log('start', this.newProjectForm.controls.start_date.value);
+    console.log('target', this.newProjectForm.controls.target_date.value);
+    if (
+      this.newProjectForm.controls.start_date.value <=
+      this.newProjectForm.controls.target_date.value
+    ) {
+      console.log('true');
+      return true;
+    } else {
+      return false;
+    }
+  };
 }

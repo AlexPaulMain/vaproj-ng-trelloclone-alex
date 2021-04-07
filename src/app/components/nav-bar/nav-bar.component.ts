@@ -30,7 +30,7 @@ export class NavBarComponent implements OnInit {
     this.alertService.alertsSubject.subscribe((alerts) => {
       alerts.forEach((alert) => {
         // display alert
-        console.log(alert.message);
+        console.log('Alert:', alert.message);
         this.snackBar.open(alert.message, 'Close', {
           duration: 3000,
           panelClass: [this.alertService.getColor(alert.type)],
@@ -57,7 +57,6 @@ export class NavBarComponent implements OnInit {
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       this.backgroundService.setBackground(result);
     });
   }

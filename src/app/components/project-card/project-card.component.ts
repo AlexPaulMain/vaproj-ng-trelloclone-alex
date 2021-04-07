@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ProjectModel } from 'src/app/models/project.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialogs/dialog-delete/dialog-delete.component';
 import { ProjectService } from '../../services/project.service';
@@ -29,10 +29,10 @@ export class ProjectCardComponent implements OnInit {
   ngOnInit(): void {
     // Initialise form
     this.editProjectForm = this.formBuilder.group({
-      project_name: [this.project.project_name],
-      description: [this.project.description],
-      start_date: [this.project.start_date],
-      target_date: [this.project.target_date],
+      project_name: [this.project.project_name, Validators.required],
+      description: [this.project.description, Validators.required],
+      start_date: [this.project.start_date, Validators.required],
+      target_date: [this.project.target_date, Validators.required],
     });
   }
 
@@ -52,7 +52,7 @@ export class ProjectCardComponent implements OnInit {
     this.projectService
       .updateProject(this.project.id, formData)
       .subscribe((projects: ProjectModel[]) => {
-        console.log(projects);
+        console.log('Updated projects from api:', projects);
         this.outputProjects(projects);
         this.alertService.addAlert('success', 'Project Saved');
       });
@@ -64,6 +64,12 @@ export class ProjectCardComponent implements OnInit {
    */
   onCancelClick(): void {
     this.edit = false;
+    this.editProjectForm.reset({
+      project_name: this.project.project_name,
+      description: this.project.description,
+      start_date: this.project.start_date,
+      target_date: this.project.target_date,
+    });
   }
 
   /**
@@ -74,9 +80,7 @@ export class ProjectCardComponent implements OnInit {
       data: { deleteType: 'Project', projectName: this.project.project_name },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       if (result === 'true') {
-        console.log('PROJECT DELETED');
         this.projectService
           .deleteProject(this.project.id)
           .subscribe((projects) => {

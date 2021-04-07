@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
    * @param loginCredentials form data
    */
   onSubmit(loginCredentials: any): void {
-    console.log('you submitted value: ', loginCredentials);
     this.authenticationService
       .login(loginCredentials)
       .subscribe((userSession) => {

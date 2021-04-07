@@ -22,7 +22,6 @@ export class MainComponent implements OnInit {
     this.authenticationService.startTokenRefresh();
     this.backgroundService.getBackground().subscribe((value) => {
       this.backgroundClass = value;
-      console.log(value);
     });
   }
 

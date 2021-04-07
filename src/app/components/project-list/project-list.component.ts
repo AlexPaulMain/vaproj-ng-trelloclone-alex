@@ -21,9 +21,9 @@ export class ProjectListComponent implements OnInit {
    * Retrieve and set array of all projects
    */
   getProjects(): void {
-    this.projectService.getProjects().subscribe((data) => {
-      console.log(data);
-      this.projects = data;
+    this.projectService.getProjects().subscribe((projects) => {
+      console.log('Projects fetched from api:', projects);
+      this.projects = projects;
     });
   }
 

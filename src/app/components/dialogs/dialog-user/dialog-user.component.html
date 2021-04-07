@@ -3,16 +3,34 @@
   <mat-form-field>
     <mat-label>First Name</mat-label>
     <input matInput formControlName="first_name" />
+    <mat-error *ngIf="editUserForm.invalid">Required</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Last Name</mat-label>
     <input matInput formControlName="last_name" />
+    <mat-error *ngIf="editUserForm.invalid">Required</mat-error>
   </mat-form-field>
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input matInput formControlName="email" />
+    <mat-error *ngIf="editUserForm.controls.email.errors?.required"
+      >Required</mat-error
+    >
+    <mat-error
+      *ngIf="
+        editUserForm.controls.email.value &&
+        editUserForm.controls.email.errors?.pattern
+      "
+      >Please enter a valid email</mat-error
+    >
   </mat-form-field>
 </form>
 <button mat-raised-button (click)="onCancelClick()">Cancel</button>
 <div class="spacer"></div>
-<button mat-raised-button (click)="onSaveClick()">Save</button>
+<button
+  mat-raised-button
+  (click)="onSaveClick()"
+  [disabled]="editUserForm.invalid"
+>
+  Save
+</button>

@@ -49,17 +49,16 @@ export class TaskComponent implements OnInit {
           .deleteTask(this.task.id, this.sectionId)
           .subscribe((tasks) => {
             this.outputTasks(tasks);
-            console.log(tasks);
+            console.log('Updated tasks from api:', tasks);
             this.alertService.addAlert('delete', 'Task Deleted');
           });
-        console.log('DELETED TASK');
       } else if (formData !== undefined) {
         // update task in database
         this.taskService
           .updateTask(this.task.id, formData, this.sectionId)
           .subscribe((tasks) => {
             this.outputTasks(tasks);
-            console.log(tasks);
+            console.log('Updated tasks from api:', tasks);
             this.alertService.addAlert('success', 'Task Updated');
           });
       }
