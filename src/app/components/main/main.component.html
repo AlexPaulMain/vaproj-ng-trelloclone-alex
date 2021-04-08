@@ -1,5 +1,5 @@
+<app-nav-bar></app-nav-bar>
 <div [ngClass]="['background-specs', backgroundClass]">
-  <app-nav-bar></app-nav-bar>
   <div *ngIf="newProject">
     <app-new-project
       (cancelNewProject)="updateDisplay($event)"

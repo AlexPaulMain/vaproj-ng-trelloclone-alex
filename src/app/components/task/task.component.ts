@@ -50,7 +50,7 @@ export class TaskComponent implements OnInit {
           .subscribe((tasks) => {
             this.outputTasks(tasks);
             console.log('Updated tasks from api:', tasks);
-            this.alertService.addAlert('delete', 'Task Deleted');
+            this.alertService.addAlert('delete', 'Task Deleted', 'Close');
           });
       } else if (formData !== undefined) {
         // update task in database
@@ -59,7 +59,7 @@ export class TaskComponent implements OnInit {
           .subscribe((tasks) => {
             this.outputTasks(tasks);
             console.log('Updated tasks from api:', tasks);
-            this.alertService.addAlert('success', 'Task Updated');
+            this.alertService.addAlert('success', 'Task Updated', 'Close');
           });
       }
     });

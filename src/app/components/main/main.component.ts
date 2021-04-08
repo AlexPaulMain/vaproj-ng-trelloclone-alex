@@ -18,8 +18,6 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authenticationService.startInterval();
-    this.authenticationService.startTokenRefresh();
     this.backgroundService.getBackground().subscribe((value) => {
       this.backgroundClass = value;
     });

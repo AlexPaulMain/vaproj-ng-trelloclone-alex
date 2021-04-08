@@ -54,7 +54,7 @@ export class ProjectCardComponent implements OnInit {
       .subscribe((projects: ProjectModel[]) => {
         console.log('Updated projects from api:', projects);
         this.outputProjects(projects);
-        this.alertService.addAlert('success', 'Project Saved');
+        this.alertService.addAlert('success', 'Project Saved', 'Close');
       });
     this.edit = false;
   }
@@ -85,7 +85,7 @@ export class ProjectCardComponent implements OnInit {
           .deleteProject(this.project.id)
           .subscribe((projects) => {
             this.outputProjects(projects);
-            this.alertService.addAlert('delete', 'Project Deleted');
+            this.alertService.addAlert('delete', 'Project Deleted', 'Close');
           });
       }
     });

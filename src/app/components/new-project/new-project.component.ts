@@ -48,7 +48,7 @@ export class NewProjectComponent implements OnInit {
       console.log('Updated projects from api:', data);
       this.outputCancelNewProject();
       // alert
-      this.alertService.addAlert('success', 'New Project Created!');
+      this.alertService.addAlert('success', 'New Project Created!', 'Close');
     });
   }
 

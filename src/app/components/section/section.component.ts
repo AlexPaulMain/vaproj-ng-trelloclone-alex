@@ -85,7 +85,7 @@ export class SectionComponent implements OnInit {
       .updateSection(this.section.id, formData, this.projectId)
       .subscribe((sections) => {
         this.outputSections(sections);
-        this.alertService.addAlert('success', 'Section Updated');
+        this.alertService.addAlert('success', 'Section Updated', 'Close');
       });
     this.edit = false;
   }
@@ -106,7 +106,7 @@ export class SectionComponent implements OnInit {
             console.log('Updated sections from api:', sections);
             // output sections to parent
             this.outputSections(sections);
-            this.alertService.addAlert('delete', 'Section Deleted');
+            this.alertService.addAlert('delete', 'Section Deleted', 'Close');
           });
       }
     });
@@ -147,7 +147,7 @@ export class SectionComponent implements OnInit {
       .subscribe((tasks: TaskModel[]) => {
         this.tasks = tasks;
         this.sectionService.storeTasks({ [this.section.id]: tasks });
-        this.alertService.addAlert('success', 'Task Added');
+        this.alertService.addAlert('success', 'Task Added', 'Close');
       });
     this.addTask = false;
     this.addTaskForm.reset({ user: this.userId });
@@ -178,6 +178,10 @@ export class SectionComponent implements OnInit {
     const prevContainerTasksCopy = [
       ...this.sectionService.tasks[event.previousContainer.id],
     ];
+
+    console.log('tasks', tasksCopy);
+    console.log('prev tasks', prevContainerTasksCopy);
+
     let followsId: number;
 
     // local drag and drop updates
@@ -223,8 +227,18 @@ export class SectionComponent implements OnInit {
         followsId,
         prevContainerTasksCopy[event.previousIndex]
       )
-      .subscribe((task) => {
-        console.log('Updated task from api:', task);
-      });
+      .subscribe(
+        (task) => {
+          console.log('Updated task from api:', task);
+        },
+        (err) => {
+          console.log('error', err);
+          this.alertService.addAlert(
+            'error',
+            'Server Issues - local changes not saved to server',
+            ''
+          );
+        }
+      );
   }
 }

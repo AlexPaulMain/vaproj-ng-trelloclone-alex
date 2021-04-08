@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -8,14 +8,16 @@ import { BackgroundService } from '../../services/background.service';
 import { DialogUserComponent } from '../dialogs/dialog-user/dialog-user.component';
 import { AlertService } from 'src/app/services/alert.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
   userName = JSON.parse(localStorage.getItem('userSession')).username;
+  tokenRefresh: Subscription;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -26,12 +28,15 @@ export class NavBarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.tokenRefresh = this.authenticationService
+      .startTokenRefresh()
+      .subscribe(() => this.authenticationService.refreshAccessToken());
     // alert service subscription
     this.alertService.alertsSubject.subscribe((alerts) => {
       alerts.forEach((alert) => {
         // display alert
         console.log('Alert:', alert.message);
-        this.snackBar.open(alert.message, 'Close', {
+        this.snackBar.open(alert.message, alert.closeMessage, {
           duration: 3000,
           panelClass: [this.alertService.getColor(alert.type)],
         });
@@ -39,6 +44,10 @@ export class NavBarComponent implements OnInit {
         this.alertService.removeAlert(alert.id);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.tokenRefresh.unsubscribe();
   }
 
   /**

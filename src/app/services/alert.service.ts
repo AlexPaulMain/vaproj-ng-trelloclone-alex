@@ -16,8 +16,9 @@ export class AlertService {
    * Creates and adds alert to alerts array and alerts subject
    * @param type string  'error' | 'warn' | 'success'
    * @param message The message to be displayed
+   * @param closeMessage the close message to be displayed
    */
-  addAlert(type: string, message: string): void {
+  addAlert(type: string, message: string, closeMessage: string): void {
     // generate id
     let id: number;
     if (this.alerts.length > 0) {
@@ -26,7 +27,7 @@ export class AlertService {
       id = 0;
     }
     // create new alert
-    const newAlert = new AlertModel(id, type, message);
+    const newAlert = new AlertModel(id, type, message, closeMessage);
     // add new alert to array
     this.alerts.push(newAlert);
     // add array to subject

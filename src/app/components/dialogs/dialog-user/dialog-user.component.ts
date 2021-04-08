@@ -51,7 +51,7 @@ export class DialogUserComponent implements OnInit {
         console.log('Updated user from api', user);
         this.userSession = { ...this.userSession, ...user };
         localStorage.setItem('userSession', JSON.stringify(this.userSession));
-        this.alertService.addAlert('success', 'Updated User Details');
+        this.alertService.addAlert('success', 'Updated User Details', 'Close');
       });
     this.dialogRef.close();
   }

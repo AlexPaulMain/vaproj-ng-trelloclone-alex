@@ -39,8 +39,6 @@ export class ProjectPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProject(this.id);
-    this.authenticationService.startInterval();
-    this.authenticationService.startTokenRefresh();
     this.sectionService
       .getSections(this.id)
       .subscribe((sections: SectionModel[]) => {
@@ -89,7 +87,7 @@ export class ProjectPageComponent implements OnInit {
           .subscribe((sections: SectionModel[]) => {
             console.log('Updated sections from api', sections);
             this.sections = sections;
-            this.alertService.addAlert('success', 'Added Section');
+            this.alertService.addAlert('success', 'Added Section', 'Close');
           });
       }
     });

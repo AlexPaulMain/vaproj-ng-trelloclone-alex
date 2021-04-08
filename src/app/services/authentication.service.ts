@@ -38,10 +38,11 @@ export class AuthenticationService {
         'No local storage userSession found. Create new userSession.'
       );
       this.currentUserSession = new BehaviorSubject({} as UserSession);
-      localStorage.setItem(
+      // TEST
+      /*localStorage.setItem(
         'userSession',
         JSON.stringify(this.currentUserSession.value)
-      );
+      );*/
     }
 
     this.isLogout = new Subject<boolean>();
@@ -102,8 +103,11 @@ export class AuthenticationService {
    * @returns JWT access token
    */
   getAccessToken(): string {
-    const userSession = JSON.parse(localStorage.getItem('userSession'));
-    return userSession.access;
+    // TEST
+    /*const userSession = JSON.parse(localStorage.getItem('userSession'));
+    return userSession.access;*/
+    // TEST
+    return this.currentUserSession.value.access;
   }
 
   /**
@@ -116,24 +120,17 @@ export class AuthenticationService {
   }
 
   /**
-   * Assigns refreshObs to timer observable
-   */
-  startInterval(): void {
-    /*const expiry = JSON.parse(atob(this.getAccessToken().split('.')[1])).exp;
-    const tokenAliveTime = expiry - Math.floor(new Date().getTime() / 1000);*/
-
-    console.log('Interval started');
-    this.refreshObs = timer(1000, 60000 * 4);
-  }
-
-  /**
    * Subscribes to refreshObs timer observable and runs token refresh
    * function every interval
    */
-  startTokenRefresh(): void {
-    this.refreshObs
-      .pipe(takeUntil(this.isLogout))
-      .subscribe((x) => this.refreshAccessToken());
+  startTokenRefresh(): Observable<number> {
+    const expiry = JSON.parse(atob(this.getAccessToken().split('.')[1])).exp;
+    const tokenAliveTime = expiry - Math.floor(new Date().getTime() / 1000);
+    console.log('Interval started');
+    this.refreshObs = timer(1000, 4000);
+    // console.log(tokenAliveTime);
+    // this.refreshObs = timer(1000, tokenAliveTime * 10);
+    return this.refreshObs.pipe(takeUntil(this.isLogout));
   }
 
   /**
@@ -181,6 +178,7 @@ export class AuthenticationService {
     this.router.navigate(['login']);
     this.currentUserSession.next({} as UserSession);
     localStorage.removeItem('userSession');
-    localStorage.setItem('userSession', JSON.stringify({} as UserSession));
+    // TEST
+    // localStorage.setItem('userSession', JSON.stringify({} as UserSession));
   }
 }
