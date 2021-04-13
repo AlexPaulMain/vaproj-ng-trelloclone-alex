@@ -7,8 +7,12 @@
   >
     <h2 mat-dialog-title>{{ data.heading }}</h2>
     <mat-card-subtitle>{{ data.description }}</mat-card-subtitle>
-    <mat-card-subtitle>Start date: {{ formatStartDate() }}</mat-card-subtitle>
-    <mat-card-subtitle>Target date: {{ formatTargetDate() }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >Start date: {{ getStartDate() | date: "longDate" }}</mat-card-subtitle
+    >
+    <mat-card-subtitle
+      >Target date: {{ getTargetDate() | date: "longDate" }}</mat-card-subtitle
+    >
   </div>
   <form *ngIf="edit" [formGroup]="editTaskForm">
     <mat-form-field>

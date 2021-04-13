@@ -127,7 +127,7 @@ export class AuthenticationService {
     const expiry = JSON.parse(atob(this.getAccessToken().split('.')[1])).exp;
     const tokenAliveTime = expiry - Math.floor(new Date().getTime() / 1000);
     console.log('Interval started');
-    this.refreshObs = timer(1000, 4000);
+    this.refreshObs = timer(1000, 60000 * 4);
     // console.log(tokenAliveTime);
     // this.refreshObs = timer(1000, tokenAliveTime * 10);
     return this.refreshObs.pipe(takeUntil(this.isLogout));

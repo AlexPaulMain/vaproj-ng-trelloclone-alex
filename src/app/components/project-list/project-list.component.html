@@ -7,6 +7,7 @@
   </mat-card-header>
   <div class="list">
     <app-project-card
+      @fade
       class="item"
       *ngFor="let project of projects"
       [project]="project"

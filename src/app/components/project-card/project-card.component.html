@@ -3,8 +3,8 @@
     <mat-card-title *ngIf="!edit">{{ project.project_name }}</mat-card-title>
     <mat-card-content *ngIf="!edit" class="content">
       <div>{{ project.description }}</div>
-      <div>Start date: {{ getStartDate() }}</div>
-      <div>Target date: {{ getTargetDate() }}</div>
+      <div>Start date: {{ getStartDate() | date: "longDate" }}</div>
+      <div>Target date: {{ getTargetDate() | date: "longDate" }}</div>
     </mat-card-content>
   </div>
 

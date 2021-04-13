@@ -9,11 +9,13 @@ import { NoteModel } from 'src/app/models/note.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { NoteService } from 'src/app/services/note.service';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { fade, slide } from 'src/app/animations/animations';
 
 @Component({
   selector: 'app-dialog-task',
   templateUrl: './dialog-task.component.html',
   styleUrls: ['./dialog-task.component.css'],
+  animations: [fade, slide],
 })
 export class DialogTaskComponent implements OnInit {
   edit = false;
@@ -102,22 +104,26 @@ export class DialogTaskComponent implements OnInit {
    * Returns task start date in more readable format
    * @returns string
    */
-  formatStartDate(): string {
+  getStartDate(): Date {
     const date = new Date(Date.parse(this.data.start_date));
-    return (
+    return date;
+    // Updated to use pipe to format date rather than formatting manually
+    /*return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    );
+    );*/
   }
 
   /**
    * Returns task target date in more readable format
    * @returns string
    */
-  formatTargetDate(): string {
+  getTargetDate(): Date {
     const date = new Date(Date.parse(this.data.target_date));
-    return (
+    return date;
+    // Updated to use pipe to format date rather than formatting manually
+    /*return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    );
+    );*/
   }
 
   /**

@@ -95,22 +95,26 @@ export class ProjectCardComponent implements OnInit {
    * Return project target date in a more readable format
    * @returns string
    */
-  getTargetDate(): string {
+  getTargetDate(): Date {
     const date = new Date(Date.parse(this.project.target_date));
-    return (
+    return date;
+    // Updated to use pipe to format date rather than formatting manually
+    /*return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    );
+    );*/
   }
 
   /**
    * Return project start data in a more readable format
    * @returns string
    */
-  getStartDate(): string {
+  getStartDate(): Date {
     const date = new Date(Date.parse(this.project.start_date));
-    return (
+    return date;
+    // Updated to use pipe to format date rather than formatting manually
+    /*return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-    );
+    );*/
   }
 
   /**

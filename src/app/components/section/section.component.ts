@@ -12,11 +12,13 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { AlertService } from 'src/app/services/alert.service';
+import { fade, slide } from 'src/app/animations/animations';
 
 @Component({
   selector: 'app-section',
   templateUrl: './section.component.html',
   styleUrls: ['./section.component.css'],
+  animations: [fade, slide],
 })
 export class SectionComponent implements OnInit {
   @Input() section: SectionModel;
@@ -148,6 +150,7 @@ export class SectionComponent implements OnInit {
         this.tasks = tasks;
         this.sectionService.storeTasks({ [this.section.id]: tasks });
         this.alertService.addAlert('success', 'Task Added', 'Close');
+        console.log(formData);
       });
     this.addTask = false;
     this.addTaskForm.reset({ user: this.userId });
