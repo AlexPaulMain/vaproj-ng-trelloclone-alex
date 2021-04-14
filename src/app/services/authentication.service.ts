@@ -162,7 +162,12 @@ export class AuthenticationService {
    */
   isAuthenticated(): boolean {
     console.log('currentUserSession', this.currentUserSession);
-    if (JSON.parse(localStorage.getItem('userSession')).access) {
+    // TEST
+    /*if (JSON.parse(localStorage.getItem('userSession')).access) {
+      console.log('User authenticated');
+      return true;
+    }*/
+    if (this.currentUserSession.value.access) {
       console.log('User authenticated');
       return true;
     }
